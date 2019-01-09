@@ -1,12 +1,20 @@
-<header>
-  <div class = "container">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <div class = "topnav" id="myTopNav">
+    
     <a routerLink="/" class = "logo">{{appTitle}}</a>
-    <nav>
-      <ul>
-        <li><a routerLink ="/">Home</a> </li>
-        <li><a routerLink ="/about">About</a> </li>
-        <li><a routerLink ="/contact">Contacts</a> </li>
-      </ul>
-    </nav>
+    <a class="icon" (click)="showMenu()">
+      <i class="fa fa-bars"></i>
+    </a>
+    <a routerLink ="/"> <i class="fa fa-outdent" aria-hidden="true"></i>  On Site</a>
+    <a routerLink ="/history"><i class="fa fa-history"></i> History</a>
+    <a routerLink ="/engineers"><i class="fa fa-fw fa-user"></i> Engineers</a>
+    <a routerLink ="/contact">Contacts</a>
+    <input type="text" placeholder="Search site..">
+
+
+
   </div>
-</header>
+
+

@@ -13,20 +13,20 @@ messageForm: FormGroup;
 submitted = false;
 success = false;
 
-  constructor(private formBuidler: FormBuilder) { 
+  constructor(private formBuidler: FormBuilder) {
     this.messageForm = this.formBuidler.group({
       name: ['', Validators.required],
       message: ['', Validators.required],
-    })
+    });
   }
 
-  onSubmit(){
+  onSubmit() {
     this.submitted = true;
 
-    if (this.messageForm.invalid){
+    if (this.messageForm.invalid) {
       return;
     }
-    this.success = true; 
+    this.success = true;
   }
 
   ngOnInit() {

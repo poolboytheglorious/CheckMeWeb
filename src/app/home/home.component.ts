@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from  '../data.service';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-home',
@@ -9,21 +9,21 @@ import { DataService } from  '../data.service';
 export class HomeComponent implements OnInit {
 
   users: Object;
-  clicked: boolean=false;
+  clicked = false;
 
 
   constructor(private data: DataService) { }
 
   ngOnInit() {
-    this.data.getUsers().subscribe(data => {
-        this.users = data
+      this.data.getUsers().subscribe(data => {
+        this.users = data;
         console.log(this.users);
       }
     );
   }
 
-  firstClick(){
-    this.clicked=true;
+  firstClick() {
+    this.clicked = true;
   }
 
 

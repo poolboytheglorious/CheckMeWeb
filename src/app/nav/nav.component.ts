@@ -7,10 +7,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavComponent implements OnInit {
 
-  appTitle: string = 'CheckThat';
+  appTitle = 'CheckThat';
   constructor() { }
+  x: Element;
 
   ngOnInit() {
+  }
+
+  showMenu() {
+    this.x = document.getElementById('myTopNav');
+    if (this.x.className === 'topnav') {
+      this.x.className += 'responsive';
+    } else {
+      this.x.className = 'topnav';
+    }
   }
 
 }
