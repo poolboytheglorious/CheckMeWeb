@@ -28,6 +28,10 @@
     display: none;
   }
 
+  .hiddenmenu{
+     display:none
+  }
+
   a:hover {
     background:rgb(0, 135, 189);
   }
@@ -52,7 +56,12 @@
 
   }
 
-  a.icon {
+  .hiddenmenu {
+    display: block;
+    float: right;
+  }
+
+    a.icon,  {
     float: right;
     display: block;
   }
@@ -72,7 +81,7 @@
     width: 40%;
   }
   input:focus{  
-    width: 95%;
+    width: 90%;
   }
 
 

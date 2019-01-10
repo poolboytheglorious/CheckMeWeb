@@ -22,12 +22,12 @@ export class HomeComponent implements OnInit {
     );
   }
 
-  editEntry(){
-//edit visit details
+  editEntry() {
+// edit visit details
   }
 
-  toggleActive(){
-
+  toggleActive() {
+// check out from site
   }
 
   firstClick() {

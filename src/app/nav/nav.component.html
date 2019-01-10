@@ -4,14 +4,29 @@
   <div class = "topnav" id="myTopNav">
     
     <a routerLink="/" class = "logo">{{appTitle}}</a>
-    <a class="icon" (click)="showMenu()">
-      <i class="fa fa-bars"></i>
-    </a>
     <a routerLink ="/"> <i class="fa fa-outdent" aria-hidden="true"></i>  On Site</a>
     <a routerLink ="/history"><i class="fa fa-history"></i> History</a>
     <a routerLink ="/engineers"><i class="fa fa-fw fa-user"></i> Engineers</a>
     <a routerLink ="/contact">Contacts</a>
     <input type="text" placeholder="Search site..">
+
+    <button class ="hiddenmenu" mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item routerLink ="/">
+        <mat-icon>format_indent_decrease</mat-icon>
+        <span>On-Site</span>
+      </button>
+      <button mat-menu-item routerLink ="/history">
+        <mat-icon>history</mat-icon>
+        <span>History</span>
+      </button>
+      <button mat-menu-item routerLink ="/engineers">
+        <mat-icon>person_pin</mat-icon>
+        <span>Engineers</span>
+      </button>
+    </mat-menu>
 
   </div>
 

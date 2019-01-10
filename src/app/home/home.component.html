@@ -1,11 +1,11 @@
 
 <table >
   <tr>
-    <th>BTNZ</th>
-    <th class = "small">SPR</th>
+    <th></th>
+    <th class = "small">VID</th>
     <th>Time In</th>
     <th>Time Out</th> 
-    <th>SPAN Id</th>
+    <th>SPAN ID</th>
     <th>Site Name</th>
     <th>Engineer</th>
     <th colspan="2" class = "small">Reason</th>
@@ -17,11 +17,19 @@
   <tr *ngFor="let user of users.data">
     <td>
         <button (click)="editEntry()"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-        <button (click)="toggleActive()">Find Users</button>
+        <button (click)="toggleActive()">
+          <i id="like" ng-class="{'icon ion-ios7-heart': liked, 'icon ion-ios7-heart-outline': !liked}" ng-click="state=!state"></i>
+        </button>
     </td>
+    
     <td class = "small">VID {{user.first_name }}</td>
-    <td>Time in {{user.first_name }}</td>
-    <td>Time Out {{user.first_name }}</td> 
+    <td matTooltip="{{signIn}}"
+        matTooltipPosition= 'before'
+        matTooltipShowDelay= '500'>Time In {{user.first_name }}</td>
+    <td matTooltip="aivistei"
+        matTooltipPosition= 'after'
+        matTooltipShowDelay= '500'>Time Out {{user.first_name }}</td> 
+
     <td><a routerLink ="/site">SPAN ID {{user.first_name }} </a></td>
     <td>Site name{{user.first_name }}</td>
     <td >Engineer {{user.first_name }}</td>
