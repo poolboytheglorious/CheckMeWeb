@@ -22,6 +22,14 @@ export class HomeComponent implements OnInit {
     );
   }
 
+  editEntry(){
+//edit visit details
+  }
+
+  toggleActive(){
+
+  }
+
   firstClick() {
     this.clicked = true;
   }

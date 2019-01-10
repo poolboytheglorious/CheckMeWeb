@@ -13,6 +13,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { EngineersComponent } from './engineers/engineers.component';
 import { HistoryComponent } from './history/history.component';
 import { SiteComponent } from './site/site.component';
+import { EngineerComponent } from './engineer/engineer.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { SiteComponent } from './site/site.component';
     EngineersComponent,
     HistoryComponent,
     SiteComponent,
+    EngineerComponent,
     ],
   imports: [
     BrowserModule,

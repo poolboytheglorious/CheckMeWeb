@@ -5,6 +5,7 @@ import { ContactComponent } from './contact/contact.component';
 import {EngineersComponent} from './engineers/engineers.component';
 import {HistoryComponent} from './history/history.component';
 import {SiteComponent} from './site/site.component';
+import {EngineerComponent} from './engineer/engineer.component';
 
 const routes: Routes = [
 // individual routes
@@ -13,6 +14,7 @@ const routes: Routes = [
 {path: 'engineers', component : EngineersComponent},
 {path: 'history', component : HistoryComponent},
 {path: 'site', component : SiteComponent},
+{path: 'engineer', component :  EngineerComponent},
 
 
 // adding URL parameters to the link

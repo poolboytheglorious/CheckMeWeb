@@ -21,6 +21,8 @@ export class NavComponent implements OnInit {
     } else {
       this.x.className = 'topnav';
     }
+
   }
+
 
 }

@@ -15,7 +15,10 @@
 
 
   <tr *ngFor="let user of users.data">
-    <td></td>
+    <td>
+        <button (click)="editEntry()"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+        <button (click)="toggleActive()">Find Users</button>
+    </td>
     <td class = "small">VID {{user.first_name }}</td>
     <td>Time in {{user.first_name }}</td>
     <td>Time Out {{user.first_name }}</td> 
