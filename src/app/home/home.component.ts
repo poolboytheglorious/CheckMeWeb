@@ -31,8 +31,8 @@ export class HomeComponent implements OnInit {
   engineer: string;
 
 
-  users: Object;
-  clicked = false;
+  visit: Object;
+  working = false;
 
 
   constructor(private data: DataService, private http: HttpClient, public dialog: MatDialog) { }
@@ -59,11 +59,11 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-      this.data.getUsers().subscribe(data => {
-        this.users = data;
-        console.log(this.users);
+      this.http.get('assets/json/visits.json').subscribe(data => {
+      this.visit = data;
+      console.log(data);
       }
-    );
+  );
   }
   getTicket() {
     // fetch ITSM INC/PKE associated with SPNAID
@@ -73,12 +73,9 @@ export class HomeComponent implements OnInit {
   }
 
   toggleActive() {
-// check out from site
+// toggle activation
   }
 
-  firstClick() {
-    this.clicked = true;
-  }
 }
 
 

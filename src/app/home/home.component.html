@@ -10,13 +10,13 @@
     <th>SPAN ID</th>
     <th>Site Name</th>
     <th>Engineer</th>
-    <th colspan="2" class = "small">Reason</th>
+    <th colspan="3" class = "small">Reason</th>
     <th class = "small">Comments</th>
     <th class = "small">Reference</th>
   </tr>
 
 
-  <tr *ngFor="let user of users.data">
+  <tr class = "active{{visit.active}}" *ngFor="let visit of visit">
     <td>
         <button mat-button (click)="editEntry()"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
         <button mat-button (click)="toggleActive()">
@@ -24,33 +24,24 @@
         </button>
     </td>
     
-    <td class = "small">VID {{user.first_name }}</td>
-    <td matTooltip="{{signIn}}"
+    <td class = "small">{{visit.VID}}</td>
+    <td matTooltip="{{visit.SignIn}}"
         matTooltipPosition= 'before'
-        matTooltipShowDelay= '500'>Time In {{user.first_name }}</td>
-    <td matTooltip="{{signIn}} aivistei"
+        matTooltipShowDelay= '500'>{{visit.TimeIn}}</td>
+    <td matTooltip="{{visit.SignOut}}"
         matTooltipPosition= 'after'
-        matTooltipShowDelay= '500'>Time Out {{user.first_name }}</td> 
+        matTooltipShowDelay= '500'>{{visit.TimeOut}}</td> 
 
-    <td><a routerLink ="/site/{{user.first_name }}">SPAN ID {{user.first_name }} </a></td>
-    <td>Site name{{user.first_name }}</td>
-    <td >Engineer {{user.first_name }}</td>
-    <td class = "small">Reason1 {{user.first_name }}
-    <td class = "small">Reason2{{user.first_name }}</td>
-    <td class = "small">Comments {{user.first_name }}</td>
-    <td class = "small">Reference {{user.first_name }}</td>
+    <td><a routerLink ="/site/{{visit.SPANID}}">{{visit.SPANID}} </a></td>
+    <td> {{visit.Sitename}}</td>
+    <td >{{visit.Engineer}}</td>
+    <td class = "small">{{visit.Reason1}}</td>
+    <td class = "small">{{visit.Reason2}}</td>
+    <td class = "small">{{visit.Reason3}}</td>
+    <td class = "small"> {{visit.Comments}}</td>
+    <td class = "small"> {{visit.Reference}}</td>
   </tr>
-
-  
-
-  <ul *ngIf="clicked">
-    <li *ngFor="let user of users.data">
-      <img [src]="user.avatar">
-      <p>{{ user.first_name }} {{ user.last_name }}</p>
-    </li>
-  
-  </ul>
+ 
 
   </table>
 
-  <button (click)="firstClick()">Find Users</button>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { DataService } from '../data.service';
@@ -8,7 +8,10 @@ import { DataService } from '../data.service';
   templateUrl: './site.component.html',
   styleUrls: ['./site.component.css']
 })
-export class SiteComponent implements OnInit {
+export class SiteComponent implements OnInit, OnDestroy {
+
+  private routeSub: any;
+  span: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -17,6 +20,13 @@ export class SiteComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.routeSub = this.route.params.subscribe(params => {
+      this.span = params['spanid'];
+    });
+  }
+
+  ngOnDestroy() {
+    this.routeSub.unscubscribe();
   }
 
 }

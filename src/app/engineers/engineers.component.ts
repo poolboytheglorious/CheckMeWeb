@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {HttpClientModule, HttpClient} from '@angular/common/http';
 import {FormControl, Validators} from '@angular/forms';
@@ -19,7 +19,9 @@ export interface DialogData {
   styleUrls: ['./engineers.component.css']
 })
 
-export class EngineersComponent implements OnInit {
+export class EngineersComponent implements OnInit, OnDestroy {
+
+  private req: any;
 
   name: string;
   lastname: string;
@@ -81,12 +83,17 @@ export class EngineersComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.displayEngineer().subscribe(data => {
-      this.engineer = data;
-      console.log(this.engineer);
-    }
-  );
+    this.req = this.http.get('assets/json/engineers.json').subscribe(data => {
+        this.engineer = data;
+        console.log(this.engineer);
+        }
+    );
   }
+
+  ngOnDestroy() {
+  this.req.unsubscribe();
+  }
+
 }
 
 @Component({

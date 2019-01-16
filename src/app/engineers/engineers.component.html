@@ -20,14 +20,14 @@
 			<tr *ngFor="let engineer of engineer">
 					<td>{{engineer.idEngineers}}</td>
 					<td>{{engineer.Name}}</td>
-					<td>{{engineer.Lastname}}</td>
+					<td>{{engineer.LastName}}</td>
 					<td>{{engineer.PhoneNumber}}</td>
 					<td>{{engineer.Country}}</td>
 					<td>{{engineer.Company}}</td>
 					<td>{{engineer.Registered}}</td>
 					
-					<td><button ng-click="deleteEng(engineer.id);">Delete</button></td>
-					<td><button ng-click="editEngineer(engineer.id, engineer.name, engineer.lastname, engineer.phone, engineer.country, engineer.company, engineer.created);">Edit</button></td>
+					<td><button mat-button ng-click="deleteEng(engineer.id);">Delete</button></td>
+					<td><button mat-button ng-click="editEngineer(engineer.id, engineer.name, engineer.lastname, engineer.phone, engineer.country, engineer.company, engineer.created);">Edit</button></td>
 
 			</tr>
 
