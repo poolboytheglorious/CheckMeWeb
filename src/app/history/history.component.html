@@ -1,1 +1,38 @@
-history works, i guess
+
+<table >
+    <tr>
+      <th class = "small">VID</th>
+      <th>Time In</th>
+      <th>Time Out</th> 
+      <th>SPAN ID</th>
+      <th>Site Name</th>
+      <th>Engineer</th>
+      <th colspan="2" class = "small">Reason</th>
+      <th class = "small">Comments</th>
+      <th class = "small">Reference</th>
+    </tr>
+  
+  
+    <tr *ngFor="let user of users.data">
+      
+      <td class = "small">VID {{user.first_name }}</td>
+      <td matTooltip="{{signIn}}"
+          matTooltipPosition= 'before'
+          matTooltipShowDelay= '500'>Time In {{user.first_name }}</td>
+      <td matTooltip="aivistei"
+          matTooltipPosition= 'after'
+          matTooltipShowDelay= '500'>Time Out {{user.first_name }}</td> 
+  
+      <td><a routerLink ="/site">SPAN ID {{user.first_name }} </a></td>
+      <td>Site name{{user.first_name }}</td>
+      <td >Engineer {{user.first_name }}</td>
+      <td class = "small">Reason1 {{user.first_name }}
+      <td class = "small">Reason2{{user.first_name }}</td>
+      <td class = "small">Comments {{user.first_name }}</td>
+      <td class = "small">Reference {{user.first_name }}</td>
+    </tr>
+     
+  
+
+  
+    </table>
