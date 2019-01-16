@@ -1,5 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {HttpClientModule, HttpClient} from '@angular/common/http';
+import {FormControl, Validators} from '@angular/forms';
+
+
+export interface DialogData {
+  name: string;
+  lastname: string;
+  phonenumber: string;
+  country: string;
+  company: string;
+
+}
 
 @Component({
   selector: 'app-engineers',
@@ -8,20 +20,41 @@ import {HttpClientModule, HttpClient} from '@angular/common/http';
 })
 
 export class EngineersComponent implements OnInit {
-  obj = {'idisable': false};
-  btnName = 'Insert';
 
   name: string;
   lastname: string;
   phonenumber: string;
   country: string;
   company: string;
-  engineerId: string;
 
   engineer: object;
 
+  constructor(private http: HttpClient, public dialog: MatDialog) { }
 
-  constructor(private http: HttpClient) { }
+  openDialog(): void {
+    const dialogRef = this.dialog.open(EngineersDialogComponent, {
+      disableClose: true,
+      width: '300px',
+      data: {
+        name: this.name,
+        lastname: this.lastname,
+        phonenumber: this.phonenumber,
+        country: this.country,
+        company: this.company,
+        }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.name = result;
+      console.log(this.name);
+      console.log(result);
+    });
+  }
+
+
+  addEngineer() {
+  }
 
   insertdata () {
     this.http.post('insert.php', {'name': this.name, 'lastname': this.lastname, 'phonenumber' : this.phonenumber,
@@ -31,7 +64,6 @@ export class EngineersComponent implements OnInit {
 
   displayEngineer() {
     return this.http.get('getengineers.php');
-
   }
 
   deleteEngineer (engineerId) {
@@ -39,15 +71,12 @@ export class EngineersComponent implements OnInit {
     this.displayEngineer();
   }
 
-  editEngineer (engineerId, name, lastname, phonenumber, country, company) {
-    this.engineerId = engineerId;
+  editEngineer (name, lastname, phonenumber, country, company) {
     this.name = name;
     this.lastname = lastname;
     this.phonenumber = phonenumber;
     this.country = country;
     this.company = company;
-    this.btnName = 'Update';
-    this.obj.idisable = true;
     this.displayEngineer();
   }
 
@@ -58,4 +87,32 @@ export class EngineersComponent implements OnInit {
     }
   );
   }
+}
+
+@Component({
+  selector: 'app-engineers-dialog',
+  templateUrl: 'engineers-dialog.html',
+  styleUrls: ['./engineers.dialog.css']
+})
+export class EngineersDialogComponent {
+
+  constructor(
+    public dialogRef: MatDialogRef<EngineersDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+
+    name = new FormControl('', [Validators.required]);
+    number = new FormControl('', [Validators.required]);
+    company = new FormControl('', [Validators.required]);
+
+
+    getErrorMessage() {
+      return this.name.hasError('required') ? 'You must enter a name' :
+       this.number.hasError('required') ? 'You must enter a number' :
+       this.company.hasError('required') ? 'You must enter a company' : '';
+    }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
 }

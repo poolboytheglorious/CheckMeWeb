@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 import { ContactComponent } from './contact/contact.component';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent, HomeDialogComponent } from './home/home.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatNativeDateModule} from '@angular/material';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
@@ -13,10 +13,11 @@ import {MaterialModule} from './material';
 
 import {ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
-import { EngineersComponent } from './engineers/engineers.component';
+import { EngineersComponent, EngineersDialogComponent } from './engineers/engineers.component';
 import { HistoryComponent } from './history/history.component';
 import { SiteComponent } from './site/site.component';
 import { EngineerComponent } from './engineer/engineer.component';
+
 
 @NgModule({
   declarations: [
@@ -28,6 +29,8 @@ import { EngineerComponent } from './engineer/engineer.component';
     HistoryComponent,
     SiteComponent,
     EngineerComponent,
+    EngineersDialogComponent,
+    HomeDialogComponent,
      ],
   imports: [
     BrowserModule,
@@ -38,6 +41,11 @@ import { EngineerComponent } from './engineer/engineer.component';
     MaterialModule,
     MatNativeDateModule,
   ],
+  entryComponents: [
+    EngineersDialogComponent,
+    HomeDialogComponent
+  ],
+
   providers: [],
   bootstrap: [AppComponent]
 })

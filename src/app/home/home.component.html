@@ -1,3 +1,5 @@
+<h1>Current Site Visits</h1>
+<button class = "addVisit" mat-raised-button (click)="openDialog()"><i class="material-icons"><i class="material-icons">playlist_add</i></i>Register Visit</button>
 
 <table >
   <tr>
@@ -16,8 +18,8 @@
 
   <tr *ngFor="let user of users.data">
     <td>
-        <button (click)="editEntry()"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-        <button (click)="toggleActive()">
+        <button mat-button (click)="editEntry()"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+        <button mat-button (click)="toggleActive()">
           <i id="like" ng-class="{'icon ion-ios7-heart': liked, 'icon ion-ios7-heart-outline': !liked}" ng-click="state=!state"></i>
         </button>
     </td>
@@ -26,11 +28,11 @@
     <td matTooltip="{{signIn}}"
         matTooltipPosition= 'before'
         matTooltipShowDelay= '500'>Time In {{user.first_name }}</td>
-    <td matTooltip="aivistei"
+    <td matTooltip="{{signIn}} aivistei"
         matTooltipPosition= 'after'
         matTooltipShowDelay= '500'>Time Out {{user.first_name }}</td> 
 
-    <td><a routerLink ="/site">SPAN ID {{user.first_name }} </a></td>
+    <td><a routerLink ="/site/{{user.first_name }}">SPAN ID {{user.first_name }} </a></td>
     <td>Site name{{user.first_name }}</td>
     <td >Engineer {{user.first_name }}</td>
     <td class = "small">Reason1 {{user.first_name }}

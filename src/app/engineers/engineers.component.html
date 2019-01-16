@@ -1,51 +1,35 @@
+<div>
+	<h1>Affiliated engineers</h1> 
+	<button mat-raised-button (click)="openDialog()"><i class="material-icons">accessibility_new</i>Add Engineer</button>
+</div>
 
-<table>
-	<tr>Add new Engineer</tr>
-	<tr>Name: <input type="text" ng-model="name" name="id"></tr>
-	<tr>Last Name: <input type="text" ng-model="lastname" name="id"></tr>
-	<tr>Phone Number: <input type="text" ng-model="lastname" name="id"></tr>
-	<tr>Country: <select>
-			<option value="LV">LV</option>
-			<option value="EE">EE</option>
-			<option value="LT">LT</option>
-			<option value="HR">HR</option>
-			<option value="NL">NL</option>
-			<option value="SE">SE</option>
-		  </select>
-		</tr>
-	<tr>Company: <input type="text" ng-model="lastname" name="id"></tr>
-	
-	<tr>{{msg}}</tr>
-</table>
-
-<input type="button" value="{{btnName}}" ng-click="insertdata()" >
-
-<table>
-	<thead>
-		<tr>
-			<th>ID</th>
-			<th>Name</th>
-			<th>Last Name</th>
-			<th>Phone Number</th>
-			<th>Country</th>
-			<th>Company</th>
-			<th>Date Created</th>
-
-		</tr>	
-	</thead>
-	<tbody>
-		<tr *ngFor="let engineer of engineer">
-				<td>{{engineer.idEngineers}}</td>
-				<td>{{engineer.Name}}</td>
-				<td>{{engineer.Lastname}}</td>
-				<td>{{engineer.PhoneNumber}}</td>
-				<td>{{engineer.Country}}</td>
-				<td>{{engineer.Company}}</td>
-				<td>{{engineer.Registered}}</td>
+<div>
+	<table id='engineers'>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Last Name</th>
+				<th>Phone Number</th>
+				<th>Country</th>
+				<th>Company</th>
+				<th>Date Created</th>
 				
-				<td><button ng-click="deleteEng(engineer.id);">Delete</button></td>
-				<td><button ng-click="editEngineer(engineer.id, engineer.name, engineer.lastname, engineer.phone, engineer.country, engineer.company, engineer.created);">Edit</button></td>
 
-		</tr>
-	</tbody>
-</table>
+			</tr>	
+
+			<tr *ngFor="let engineer of engineer">
+					<td>{{engineer.idEngineers}}</td>
+					<td>{{engineer.Name}}</td>
+					<td>{{engineer.Lastname}}</td>
+					<td>{{engineer.PhoneNumber}}</td>
+					<td>{{engineer.Country}}</td>
+					<td>{{engineer.Company}}</td>
+					<td>{{engineer.Registered}}</td>
+					
+					<td><button ng-click="deleteEng(engineer.id);">Delete</button></td>
+					<td><button ng-click="editEngineer(engineer.id, engineer.name, engineer.lastname, engineer.phone, engineer.country, engineer.company, engineer.created);">Edit</button></td>
+
+			</tr>
+
+	</table>
+</div>

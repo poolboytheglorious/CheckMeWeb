@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-site',
@@ -7,7 +10,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SiteComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private service: DataService
+  ) { }
 
   ngOnInit() {
   }
