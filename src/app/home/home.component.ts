@@ -92,7 +92,9 @@ export class HomeDialogComponent {
 
     onSubmit() {
       if (this.dataService.form.get('$key').value == null)
-
+        {
+          console.log("ayy lmao");
+        }
     }
 
     getErrorMessage() {
