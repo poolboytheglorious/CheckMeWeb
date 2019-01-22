@@ -1,0 +1,82 @@
+#title {
+    font-size: 50px;
+    display: inline;
+}
+
+.addVisit {
+    float: right;
+}
+div {
+    display: block;
+}
+
+button {
+    float: right;
+    }
+    
+    
+    #map {
+      display: inline-block;
+      width: 30%;
+      background-image: url("https://www.mapsofindia.com/worldmap/map-of-world.jpg");
+      background-repeat: no-repeat;
+      background-size: cover; /* Resize the background image to cover the entire container */
+    }
+    #map:after {
+      content: "";
+      display: block;
+      padding-bottom: 30%;
+    }
+    
+    #info {
+      display: inline-block;
+    }
+
+    #devices {
+        display: block;
+    }
+
+    #devices th {
+       display: inline-block;
+       width: 30%;
+    }
+    
+    #visits {
+        display: block;
+    }
+
+    .tech {
+      width: 30%;
+      display: inline-block;
+      padding:1.5%;
+    }
+    .alarms{
+      width: 95%;
+    }
+    
+    .panel-title {
+      font-weight: bold;
+      text-align: center;
+      padding-top: 10px;
+      font-size: 30px;
+    }
+    
+  
+    table {
+      display: block;
+      font-size: 14px;
+      width: 95%;
+    
+    }
+    
+    td {
+      border: 1px;
+      border-color: black;
+    }
+    
+    .rediconcolor {
+        color: red;
+    }
+    .greeniconcolor{
+        color: greenyellow;
+    }

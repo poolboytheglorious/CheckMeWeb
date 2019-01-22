@@ -1,0 +1,58 @@
+<h1 mat-dialog-title>Register New Site Visit</h1>
+<div>
+<h1>
+    [span]="span"    
+    Site {{data.span}}
+</h1>
+
+    <mat-form-field class="form-control">
+            <input matInput placeholder="Phone Number" [formControl]="number" required>
+            <mat-error *ngIf="number.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-control">
+            <mat-select placeholder="Performing" [formControl]="reason" required>
+                <mat-option value="option">Installation </mat-option>
+                <mat-option value="option">Faulthandling </mat-option>
+                <mat-option value="option">Preventive Maintenance </mat-option>
+                <mat-option value="option">Replacement </mat-option>
+                <mat-option value="option">Upgrade </mat-option>
+                <mat-option value="option">Generating Site </mat-option>
+            </mat-select>
+            <mat-error *ngIf="reason.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-control">
+            <mat-select placeholder="Of...">
+                <mat-option value="option">2G </mat-option>
+                <mat-option value="option">3G </mat-option>
+                <mat-option value="option">4G </mat-option>
+                <mat-option value="option">Site </mat-option>
+                <mat-option value="option">External </mat-option>
+                <mat-option value="option">Transmission </mat-option>
+                <mat-option value="option">Something Else </mat-option>
+                <mat-option>Clear</mat-option>
+            </mat-select>       
+    </mat-form-field>
+
+    <mat-form-field class="form-control">
+            <input matInput placeholder="Reason of visit">
+    </mat-form-field>
+    
+    <mat-form-field class="form-control">
+            <input matInput placeholder="Ticket ID">
+    </mat-form-field>
+    <button class ="right" 
+            mat-button (click)="getTicket()"
+            matTooltip="Querry ITSM inventory"
+            matTooltipPosition= 'below'
+            matTooltipShowDelay= '500'>
+            <i class="material-icons">search</i></button>
+
+</div>
+
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button class="right" ng-click="insertdata()" cdkFocusInitial [mat-dialog-close] >Register</button>
+</div>
+

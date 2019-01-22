@@ -32,14 +32,14 @@
         matTooltipPosition= 'after'
         matTooltipShowDelay= '500'>{{visit.TimeOut}}</td> 
 
-    <td><a routerLink ="/site/{{visit.SPANID}}">{{visit.SPANID}} </a></td>
+    <td><a routerLink ="/site/{{visit.SPANID}}">{{visit.SPANID}}</a></td>
     <td> {{visit.Sitename}}</td>
-    <td >{{visit.Engineer}}</td>
+    <td ><a routerLink ="/engineer/{{visit.Engineer}}">{{visit.Engineer}}</a></td>
     <td class = "small">{{visit.Reason1}}</td>
     <td class = "small">{{visit.Reason2}}</td>
     <td class = "small">{{visit.Reason3}}</td>
-    <td class = "small"> {{visit.Comments}}</td>
-    <td class = "small"> {{visit.Reference}}</td>
+    <td class = "small">{{visit.Comments}}</td>
+    <td class = "small">{{visit.Reference}}</td>
   </tr>
  
 

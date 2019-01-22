@@ -1,28 +1,28 @@
 <h1 mat-dialog-title>Add new Engineer</h1>
 
-<div mat-dialog-content class="dialog-container">
-    <mat-form-field class="Field">
+<div mat-dialog-content class="form-group">
+    <mat-form-field class="form-control">
         <input matInput placeholder="Phone Number" [formControl]="number" required>
         <mat-error *ngIf="number.invalid">{{getErrorMessage()}}</mat-error>
     </mat-form-field>
 
-  <mat-form-field class="Field">
+  <mat-form-field class="form-control">
         <input matInput placeholder="Name" [formControl]="name" required>
         <mat-error *ngIf="name.invalid">{{getErrorMessage()}}</mat-error>
   </mat-form-field>
 
-  <mat-form-field class="Field">
+  <mat-form-field class="form-control">
         <input matInput placeholder="Last Name">
   </mat-form-field>
 
-  <mat-form-field class="Field">
+  <mat-form-field class="form-control">
         <input matInput placeholder="Company" [formControl]="company" required>
         <mat-error *ngIf="company.invalid">{{getErrorMessage()}}</mat-error>
   </mat-form-field>
         <!-- <input matInput [(ngModel)]="data.name" placeholder="Name"> -->
 
     
-    <mat-form-field class="Field">
+    <mat-form-field class="form-control">
         <mat-select placeholder="Pick a Country">
             <mat-option value="option">LV <i class="flag-icon flag-icon-lv"> </i> </mat-option>
             <mat-option value="option">EE <span class="flag-icon flag-icon-ee"> </span></mat-option>

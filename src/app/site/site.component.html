@@ -1,3 +1,318 @@
-<p>
-  {{span}} site works!
-</p>
+<div>
+  <h1 id="title">
+    {{span}}
+  </h1>
+  <button class = "addVisit" mat-raised-button (click)="openDialog()"><i class="material-icons"><i class="material-icons">playlist_add</i></i>Register Visit</button>
+
+</div>
+
+<div id="map">
+  <h2>MAP</h2>
+  </div>
+  
+  <div id="info">
+  <h2>information</h2>
+  </div>
+  
+  <div id="devices">
+  
+  <mat-accordion id ="2G" class= "tech">
+    <mat-expansion-panel  (opened)="panelOpenState1 = true"
+                         (closed)="panelOpenState1 = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title class = "panel-title">
+          2G {{panelOpenState1 ? '' : '°FSME'}}
+        </mat-panel-title>
+
+      </mat-expansion-panel-header>
+        
+    <table>
+      <tr>
+        <th>°CTRL-92</th>
+        <th>°BCF-XXX</th>
+        <th colspan="3">°Gxxx-Netactname</th>
+        <th colspan="2"><button mat-button (click)="editEntry()"><i class="material-icons">warning</i></button></th> 
+  
+      </tr>
+    </table>
+  
+    <table ngFor="let BTS of BTS">
+      <tr>
+        <td></td>
+        <td>°BTS-xxx</td>
+          <td matTooltip="watts and misc shit"
+            matTooltipPosition= 'after'
+            matTooltipShowDelay= '300'>
+            °GxxxY-Cellname
+        </td> 
+        <td>°U</td>
+        <td>°WO</td>
+        <td>
+            <button mat-button (click)="editEntry()"><i class="material-icons">lock</i></button>
+        </td>
+        <td>
+            <button mat-button (click)="editEntry()"><i class="material-icons">lock_open</i></button>
+        </td>
+      </tr>
+      <tr ngFor="let TRX of TRX">
+        <td></td>
+        <td></td>
+        <td>°TRXnr</td>
+        <td>°U</td>
+        <td>°WO</td>
+      </tr>
+      
+    </table>
+    <table>
+      <tr>°<i class="material-icons">link</i><i class="material-icons">link_off</i></tr>
+      <tr>
+        <td>
+            <i class="material-icons">dashboard</i>  °FSME CP:
+        </td>
+        <td>
+        <button mat-button (click)="editEntry()">°xxx.xxx.xx.xx     <i class="material-icons">file_copy</i></button>
+        </td>
+      </tr>
+      <tr ngFor="let HW of HW">
+        <td><i class="material-icons">radio</i>  °FXDB</td>
+        <td>°12/12/2012</td>
+      </tr>
+    </table>
+  
+    <mat-accordion class= "alarms" *ngIf="!condition">
+      <mat-expansion-panel (opened)="panelOpenState11 = true"
+                          (closed)="panelOpenState11 = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title class = "panel-title">
+            <i class="material-icons rediconcolor">warning</i>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+  
+          <table>
+            <tr ngFor="let alarm of alarm">
+              <td>°element</td>
+              <td>°22 Jan 15:56</td>
+              <td>°7651 BASE STATION OPERATION DEGRADED  key: BTS RNC/Flexi Direct interface signalling link failure</td>
+            </tr>
+          </table>
+  
+      </mat-expansion-panel>
+    </mat-accordion>
+    <ng-template [ngIf]="condition"><div><i class="material-icons greeniconcolor">check_circle_outline</i>   No Active Alarms</div></ng-template>
+  
+  
+    </mat-expansion-panel>
+  </mat-accordion>
+  
+  <mat-accordion id = "3G" class= "tech">
+    <mat-expansion-panel  (opened)="panelOpenState2 = true"
+                         (closed)="panelOpenState2 = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title class = "panel-title">
+            3G {{panelOpenState1 ? '' : '°FSMF'}}
+          </mat-panel-title>
+  
+        </mat-expansion-panel-header>
+          
+      <table>
+        <tr>
+          <th>°RNC46</th>
+          <th>°WBTS-XXX</th>
+          <th colspan="3">°Uxxx-Netactname</th>
+          <th colspan="2"><button mat-button (click)="editEntry()"><i class="material-icons">warning</i></button></th> 
+    
+        </tr>
+      </table>
+    
+      <table ngFor="let BTS of BTS">
+        <tr>
+          <td>°WCELL-xx</td>
+          <td matTooltip="°misc shit"
+            matTooltipPosition= 'after'
+            matTooltipShowDelay= '300'>
+            °UxxxY-Cellname
+          </td>
+          <td>°WO</td>
+          <td>
+              <button mat-button (click)="editEntry()"><i class="material-icons">lock</i></button>
+          </td>
+          <td>
+              <button mat-button (click)="editEntry()"><i class="material-icons">lock_open</i></button>
+          </td>
+        </tr>
+        
+      </table>
+      <table>
+        <tr>°<i class="material-icons">link</i><i class="material-icons">link_off</i></tr>
+        <tr>
+          <td>
+              <i class="material-icons">dashboard</i>  °FSMF CP:
+          </td>
+          <td>
+          <button mat-button (click)="editEntry()">°xxx.xxx.xx.xx     <i class="material-icons">file_copy</i></button>
+          </td>
+        </tr>
+        <tr ngFor="let HW of HW">
+          <td><i class="material-icons">radio</i>  °FXDB</td>
+          <td>°12/12/2012</td>
+        </tr>
+      </table>
+    
+      <mat-accordion class= "alarms" *ngIf="!condition">
+        <mat-expansion-panel (opened)="panelOpenState11 = true"
+                            (closed)="panelOpenState11 = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title class = "panel-title">
+              <i class="material-icons rediconcolor">warning</i>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+    
+            <table>
+              <tr ngFor="let alarm of alarm">
+                <td>°element</td>
+                <td>°22 Jan 15:56</td>
+                <td>°7651 BASE STATION OPERATION DEGRADED  key: BTS RNC/Flexi Direct interface signalling link failure</td>
+              </tr>
+            </table>
+    
+        </mat-expansion-panel>
+      </mat-accordion>
+      <ng-template [ngIf]="condition"><div><i class="material-icons greeniconcolor">check_circle_outline</i>   No Active Alarms</div></ng-template>
+    
+    
+      </mat-expansion-panel>
+    </mat-accordion>
+  
+  <mat-accordion id = "4G" class= "tech">
+    <mat-expansion-panel (opened)="panelOpenState3 = true"
+                         (closed)="panelOpenState3 = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title class = "panel-title">
+            4G {{panelOpenState1 ? '' : '°FSMF'}}
+          </mat-panel-title>
+  
+        </mat-expansion-panel-header>
+          
+      <table>
+        <tr>
+          <th>°MR-XXXXXX</th>
+          <th>°LNBTS-XXXXX</th>
+          <th colspan="3">°LYxxx-Netactname</th>
+          <th colspan="2"><button mat-button (click)="editEntry()"><i class="material-icons">warning</i></button></th> 
+    
+        </tr>
+      </table>
+    
+      <table ngFor="let BTS of BTS">
+        <tr>
+          <td>°LYXXXX</td>
+          <td matTooltip="°misc shit"
+            matTooltipPosition= 'after'
+            matTooltipShowDelay= '300'>
+            °XXCellNr
+          </td>
+          <td>°U/WO</td>
+          <td>
+              <button mat-button (click)="editEntry()"><i class="material-icons">lock</i></button>
+          </td>
+          <td>
+              <button mat-button (click)="editEntry()"><i class="material-icons">lock_open</i></button>
+          </td>
+        </tr>
+        
+      </table>
+      <table>
+        <tr>°<i class="material-icons">link</i><i class="material-icons">link_off</i></tr>
+        <tr>
+          <td>
+              <i class="material-icons">dashboard</i>  °FSME CP:
+          </td>
+          <td>
+          <button mat-button (click)="editEntry()">°xxx.xxx.xx.xx     <i class="material-icons">file_copy</i></button>
+          </td>
+        </tr>
+        <tr ngFor="let HW of HW">
+          <td><i class="material-icons">radio</i>  °FXDB</td>
+          <td>°12/12/2012</td>
+        </tr>
+      </table>
+    
+      <mat-accordion class= "alarms" *ngIf="!condition">
+        <mat-expansion-panel (opened)="panelOpenState11 = true"
+                            (closed)="panelOpenState11 = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title class = "panel-title">
+              <i class="material-icons rediconcolor">warning</i>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+    
+            <table>
+              <tr ngFor="let alarm of alarm">
+                <td>°element</td>
+                <td>°22 Jan 15:56</td>
+                <td>°7651 BASE STATION OPERATION DEGRADED  key: BTS RNC/Flexi Direct interface signalling link failure</td>
+              </tr>
+            </table>
+    
+        </mat-expansion-panel>
+      </mat-accordion>
+      <ng-template [ngIf]="condition"><div><i class="material-icons greeniconcolor">check_circle_outline</i>   No Active Alarms</div></ng-template>
+    
+    
+      </mat-expansion-panel>
+    </mat-accordion>
+  
+    <button mat-button (click)="editEntry()"><i class="material-icons">power_settings_new</i> °xxx.xxx.xx.xx </button>
+    <button mat-button (click)="editEntry()"><i class="material-icons">router</i> °xxx.xxx.xx.xx</button>
+
+  </div>
+  
+
+<div id = "visits">
+
+<table >
+  <tr>
+    <th></th>
+    <th class = "small">VID</th>
+    <th>Time In</th>
+    <th>Time Out</th> 
+    <th>SPAN ID</th>
+    <th>Site Name</th>
+    <th>Engineer</th>
+    <th colspan="3" class = "small">Reason</th>
+    <th class = "small">Comments</th>
+    <th class = "small">Reference</th>
+  </tr>
+
+
+  <tr class = "active{{visit.active}}" *ngFor="let visit of visit">
+    <td>
+        <button mat-button (click)="editEntry()"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+        <button mat-button (click)="toggleActive()">
+          <i id="like" ng-class="{'icon ion-ios7-heart': liked, 'icon ion-ios7-heart-outline': !liked}" ng-click="state=!state"></i>
+        </button>
+    </td>
+    
+    <td class = "small">{{visit.VID}}</td>
+    <td matTooltip="{{visit.SignIn}}"
+        matTooltipPosition= 'before'
+        matTooltipShowDelay= '300'>{{visit.TimeIn}}</td>
+    <td matTooltip="{{visit.SignOut}}"
+        matTooltipPosition= 'after'
+        matTooltipShowDelay= '300'>{{visit.TimeOut}}</td> 
+
+    <td><a routerLink ="/site/{{visit.SPANID}}">{{visit.SPANID}}</a></td>
+    <td> {{visit.Sitename}}</td>
+    <td >{{visit.Engineer}}</td>
+    <td class = "small">{{visit.Reason1}}</td>
+    <td class = "small">{{visit.Reason2}}</td>
+    <td class = "small">{{visit.Reason3}}</td>
+    <td class = "small"> {{visit.Comments}}</td>
+    <td class = "small"> {{visit.Reference}}</td>
+  </tr>
+ 
+
+  </table>
+
+</div>
+

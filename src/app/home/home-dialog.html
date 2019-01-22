@@ -1,59 +1,62 @@
 <h1 mat-dialog-title>Register New Site Visit</h1>
 
-<div mat-dialog-content class="dialog-container">
-    <mat-form-field class="Field">
-        <input matInput placeholder="Site" [formControl]="site" required>
-        <mat-error *ngIf="site.invalid">{{getErrorMessage()}}</mat-error>
-    </mat-form-field>   
+<form [formGroup]="this.dataService.form" (ngSubmit)="onSubmit()">
+        <div mat-dialog-content class="form-group">
+                <input type="hidden" formControlName="$key">
+        <mat-form-field  >
+                <input matInput placeholder="Site" [formControl]="site" formControlName = "site" class="form-control" required>
+                <mat-error *ngIf="site.invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>   
 
-    <mat-form-field class="Field">
-            <input matInput placeholder="Phone Number" [formControl]="number" required>
-            <mat-error *ngIf="number.invalid">{{getErrorMessage()}}</mat-error>
-    </mat-form-field>
+        <mat-form-field >
+                <input matInput placeholder="Phone Number" [formControl]="phonenumber"formControlName = "phonenumber" class="form-control" required>
+                <mat-error *ngIf="number.invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
 
-    <mat-form-field class="Field">
-            <mat-select placeholder="Performing" [formControl]="reason" required>
-                <mat-option value="option">Installation </mat-option>
-                <mat-option value="option">Faulthandling </mat-option>
-                <mat-option value="option">Preventive Maintenance </mat-option>
-                <mat-option value="option">Replacement </mat-option>
-                <mat-option value="option">Upgrade </mat-option>
-                <mat-option value="option">Generating Site </mat-option>
-            </mat-select>
-            <mat-error *ngIf="reason.invalid">{{getErrorMessage()}}</mat-error>
-    </mat-form-field>
+        <mat-form-field >
+                <mat-select placeholder="Performing" [formControl]="reason" formControlName = "reason" class="form-control" required>
+                        <mat-option value="option">Installation </mat-option>
+                        <mat-option value="option">Faulthandling </mat-option>
+                        <mat-option value="option">Preventive Maintenance </mat-option>
+                        <mat-option value="option">Replacement </mat-option>
+                        <mat-option value="option">Upgrade </mat-option>
+                        <mat-option value="option">Generating Site </mat-option>
+                </mat-select>
+                <mat-error *ngIf="reason.invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
 
-    <mat-form-field class="Field">
-            <mat-select placeholder="Of...">
-                <mat-option value="option">2G </mat-option>
-                <mat-option value="option">3G </mat-option>
-                <mat-option value="option">4G </mat-option>
-                <mat-option value="option">Site </mat-option>
-                <mat-option value="option">External </mat-option>
-                <mat-option value="option">Transmission </mat-option>
-                <mat-option value="option">Something Else </mat-option>
-                <mat-option>Clear</mat-option>
-            </mat-select>       
-    </mat-form-field>
+        <mat-form-field >
+                <mat-select [formControl]="reason2" formControlName = "reason2" class="form-control" placeholder="Of...">
+                        <mat-option value="option">2G </mat-option>
+                        <mat-option value="option">3G </mat-option>
+                        <mat-option value="option">4G </mat-option>
+                        <mat-option value="option">Site </mat-option>
+                        <mat-option value="option">External </mat-option>
+                        <mat-option value="option">Transmission </mat-option>
+                        <mat-option value="option">Something Else </mat-option>
+                        <mat-option>Clear</mat-option>
+                </mat-select>       
+        </mat-form-field>
 
-    <mat-form-field class="Field">
-            <input matInput placeholder="Reason of visit">
-    </mat-form-field>
-    
-    <mat-form-field class="inc">
-            <input matInput placeholder="Ticket ID">
-    </mat-form-field>
-    <button class ="right" 
-            mat-button (click)="getTicket()"
-            matTooltip="Querry ITSM inventory"
-            matTooltipPosition= 'below'
-            matTooltipShowDelay= '500'>
-            <i class="material-icons">search</i></button>
+        <mat-form-field >
+                <input [formControl]="reason3" formControlName = "reason3" matInput class="form-control" placeholder="Reason of visit">
+        </mat-form-field>
+        
+        <mat-form-field >
+                <input matInput [formControl]="inc" formControlName = "inc" class="form-control" placeholder="Ticket ID">
+        </mat-form-field>
+        <button class ="right" 
+                mat-button (click)="getTicket()"
+                matTooltip="Querry ITSM inventory"
+                matTooltipPosition= 'below'
+                matTooltipShowDelay= '500'>
+                <i class="material-icons">search</i></button>
 
-</div>
+        </div>
 
-<div mat-dialog-actions>
-    <button mat-button (click)="onNoClick()">Cancel</button>
-    <button mat-button class="right" ng-click="insertdata()" cdkFocusInitial [mat-dialog-close] >Register</button>
-</div>
-
+        <div mat-dialog-actions>
+        <button mat-button (click)="onNoClick()">Cancel</button>
+        <button mat-button class="right" ng-click="insertVisit()" cdkFocusInitial [mat-dialog-close] >Register</button>
+        <input type="submit" class="btn btn-primary right" value= "RegisterFire">
+        </div>
+</form>

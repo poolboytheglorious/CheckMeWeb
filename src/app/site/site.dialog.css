@@ -1,0 +1,14 @@
+.Field {
+    width: 90%;
+}
+.inc {
+    width:80%;
+}
+
+.right {
+    float: right;
+}
+
+mat-option.mat-option{
+    height: 30px;
+}

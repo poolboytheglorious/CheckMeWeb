@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {  Component, Inject, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-history',

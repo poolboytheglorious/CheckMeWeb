@@ -1,19 +1,9 @@
-import {  Component, Inject, OnInit } from '@angular/core';
+import {  Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { DataService } from '../data.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { FormControl, Validators } from '@angular/forms';
 
-export interface DialogData {
-  name: string;
-  lastname: string;
-  phonenumber: string;
-  country: string;
-  company: string;
-  site: string;
-  engineer: string;
-
-}
 
 @Component({
   selector: 'app-home',
@@ -35,7 +25,11 @@ export class HomeComponent implements OnInit {
   working = false;
 
 
-  constructor(private data: DataService, private http: HttpClient, public dialog: MatDialog) { }
+  constructor(
+  private dataService: DataService,
+  private http: HttpClient,
+  public dialog: MatDialog
+  ) { }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(HomeDialogComponent, {
@@ -61,7 +55,6 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
       this.http.get('assets/json/visits.json').subscribe(data => {
       this.visit = data;
-      console.log(data);
       }
   );
   }
@@ -89,12 +82,18 @@ export class HomeDialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<HomeDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    private dataService: DataService
+    ) {}
 
     site = new FormControl('', [Validators.required]);
     number = new FormControl('', [Validators.required]);
     reason = new FormControl('', [Validators.required]);
 
+    onSubmit() {
+      if (this.dataService.form.get('$key').value == null)
+
+    }
 
     getErrorMessage() {
       return this.site.hasError('required') ? 'You must enter a site' :
@@ -105,5 +104,15 @@ export class HomeDialogComponent {
   onNoClick(): void {
     this.dialogRef.close();
   }
+
+}
+export interface DialogData {
+  name: string;
+  lastname: string;
+  phonenumber: string;
+  country: string;
+  company: string;
+  site: string;
+  engineer: string;
 
 }

@@ -1,3 +1,5 @@
+<link href="C:/Users/Aivis/Desktop/CheckMeWeb/CheckMeWeb/node_modules/flag-icon-css/css/flag-icon.min.css" rel="stylesheet">
+<link href="C:/Users/Aivis/Desktop/CheckMeWeb/CheckMeWeb/src/assets/flag-icon-css-master/css/flag-icon.min.css" rel="stylesheet">
 <h1>Contact us</h1>
 
 <form [formGroup]="messageForm" (ngSubmit)="onSubmit()">
@@ -25,11 +27,14 @@
 </form>
 
 <div *ngIf="submitted" class="results">
-    <strong>Name:</strong>  
-    <span>{{messageForm.controls.name.value}}</span>
-  </div>
- 
-  <div *ngIf="submitted" class="results">
-      <strong>Message:</strong>  
-      <span>{{messageForm.controls.message.value}}</span>
-    </div>
+  <strong>Name:</strong>  
+  <span>{{messageForm.controls.name.value}}</span>
+</div>
+
+<div *ngIf="submitted" class="results">
+  <strong>Message:</strong>  
+  <span>{{messageForm.controls.message.value}}</span>
+</div>
+
+asd<span class="flag-icon flag-icon-gr">asd</span>
+asd<i class="flag-icon flag-icon-gr" aria-hidden="true"></i>
