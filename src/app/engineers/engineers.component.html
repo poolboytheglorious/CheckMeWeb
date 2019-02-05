@@ -22,8 +22,8 @@
 					<td>{{engineer.Name}}</td>
 					<td>{{engineer.LastName}}</td>
 					<td>{{engineer.PhoneNumber}}</td>
-					<td>{{engineer.Country}}<span class="flag-icon flag-icon-gr"></span></td>
-					<td>{{engineer.Company}}<i class="flag-icon flag-icon-gr" aria-hidden="true"></i></td>
+					<td>{{engineer.Country}}<span class="flag-icon flag-icon-{{engineer.Country | lowercase}}"></span></td>
+					<td>{{engineer.Company}}</td>
 					<td>{{engineer.Registered}}</td>
 					
 					<td><button mat-button ng-click="deleteEng(engineer.id);">Delete</button></td>

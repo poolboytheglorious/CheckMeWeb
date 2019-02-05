@@ -1,12 +1,10 @@
-<link href="C:/Users/Aivis/Desktop/CheckMeWeb/CheckMeWeb/node_modules/flag-icon-css/css/flag-icon.min.css" rel="stylesheet">
-<link href="C:/Users/Aivis/Desktop/CheckMeWeb/CheckMeWeb/src/assets/flag-icon-css-master/css/flag-icon.min.css" rel="stylesheet">
 <h1>Contact us</h1>
 
 <form [formGroup]="messageForm" (ngSubmit)="onSubmit()">
   <h5 *ngIf ="success">Your form is valid! </h5>
 
   <label>
-      Name: <input type="text" formControlName="name">
+      Name: <input type="text" [formControl]="name">
       <div *ngIf="submitted && messageForm.controls.name.errors" class="error">
       <div *ngIf="messageForm.controls.name.errors.required" class="error">Please insert your name</div>
     </div>
@@ -14,7 +12,7 @@
   </label>
 
   <label>
-      Message: <textarea formControlName="message"></textarea>
+      Message: <textarea [formControl]="message"></textarea>
       <div *ngIf="submitted && messageForm.controls.message.errors" class="error">
       <div *ngIf="messageForm.controls.message.errors.required" class="error">Please insert your name</div>
     </div>

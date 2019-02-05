@@ -2,7 +2,9 @@ import {  Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { DataService } from '../data.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { TimeoutError } from 'rxjs';
+
 
 
 @Component({
@@ -12,57 +14,46 @@ import { FormControl, Validators } from '@angular/forms';
 })
 export class HomeComponent implements OnInit {
 
-  name: string;
-  lastname: string;
-  phonenumber: string;
-  country: string;
-  company: string;
-  site: string;
-  engineer: string;
-
-
-  visit: Object;
+  user = 'aivistei';
+  visits: any;
+  visit: object;
+  visitH: object;
   working = false;
 
 
   constructor(
   private dataService: DataService,
   private http: HttpClient,
-  public dialog: MatDialog
+  public dialog: MatDialog,
   ) { }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(HomeDialogComponent, {
+    this.dialog.open(HomeDialogComponent, {
       disableClose: true,
+      autoFocus: true,
       width: '400px',
-      data: {
-        site: this.site,
-        engineer: this.engineer,
-        phonenumber: this.phonenumber,
-        country: this.country,
-        company: this.company,
-        }
+      data: this.dataService.form
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.name = result;
-      console.log(this.name);
-      console.log(result);
-    });
   }
 
   ngOnInit() {
-      this.http.get('assets/json/visits.json').subscribe(data => {
-      this.visit = data;
+    this.visits = this.http.get('http://localhost/sqltest/getactivevisits.php').subscribe(data => {
+        this.visit = data;
+        }
+    );
+    this.visits = this.http.get('http://localhost/sqltest/gethistoricvisits.php').subscribe(data => {
+      this.visitH = data;
       }
   );
   }
+
+  editEntry() {
+
+  }
+
   getTicket() {
     // fetch ITSM INC/PKE associated with SPNAID
-  }
-  editEntry() {
-// edit visit details
   }
 
   toggleActive() {
@@ -81,40 +72,52 @@ export class HomeComponent implements OnInit {
 export class HomeDialogComponent {
 
   constructor(
+    private dataService: DataService,
     public dialogRef: MatDialogRef<HomeDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
-    private dataService: DataService
     ) {}
 
-    site = new FormControl('', [Validators.required]);
-    number = new FormControl('', [Validators.required]);
-    reason = new FormControl('', [Validators.required]);
+  formControls = this.dataService.form.controls;
+
+
+
+    submitted: boolean;
+
+
 
     onSubmit() {
-      if (this.dataService.form.get('$key').value == null)
-        {
-          console.log("ayy lmao");
-        }
+      this.submitted = true;
+
+      if (this.dataService.form.valid) {
+        if (this.dataService.form.get('$key').value == null) {
+          this.dataService.insertVisit(this.dataService.form.value);
+        } else {
+            this.submitted = false;
+            this.dataService.form.reset();
+            this.dataService.form.setValue({
+              $key: null,
+              SPANID: '',
+              phonenumber: '',
+              reason: '',
+              reason2: '',
+              reason3: '',
+              signin: '{{user}}',
+              signout: '{{user}}',
+              inc: ''
+            });
+          }
+      }
     }
 
+
     getErrorMessage() {
-      return this.site.hasError('required') ? 'You must enter a site' :
-       this.number.hasError('required') ? 'You must enter a number' :
-       this.reason.hasError('required') ? 'You must select a reason' : '';
+      return this.spanid.hasError('required') ? 'You must enter a valid site identifier' :
+       this.phonenumber.hasError('required') ? 'You must enter a valid phone number' :
+       this.reason.hasError('required') ? 'You must select an action' :
+       this.reason2.hasError('required') ? 'You must select the equippment' : '';
     }
 
   onNoClick(): void {
-    this.dialogRef.close();
+  this.dialogRef.close();
   }
-
-}
-export interface DialogData {
-  name: string;
-  lastname: string;
-  phonenumber: string;
-  country: string;
-  company: string;
-  site: string;
-  engineer: string;
 
 }

@@ -12,3 +12,11 @@
 mat-option.mat-option{
     height: 30px;
 }
+
+mat-form-field{
+    width: 95%;
+}
+
+mat-form-field:last-of-type{
+    width: calc(95% - 64px)
+}

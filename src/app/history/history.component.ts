@@ -11,19 +11,21 @@ import { FormControl, Validators } from '@angular/forms';
 })
 export class HistoryComponent implements OnInit {
 
+  visits: any;
+  visit: object;
 
 
 
-  constructor(private data: DataService) { }
+  constructor(private data: DataService, private http: HttpClient) { }
 
   users: object;
 
   ngOnInit() {
-      this.data.getUsers().subscribe(data => {
-        this.users = data;
-        console.log(this.users);
-      }
+    this.visits = this.http.get('http://localhost/sqltest/getactivevisits.php').subscribe(data => {
+        this.visit = data;
+        }
     );
   }
+
 
 }

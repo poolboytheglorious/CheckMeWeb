@@ -5,12 +5,12 @@
 export const environment = {
   production: false,
   firebaseConfig: {
-    apiKey: "AIzaSyBTjWldXXI4GWtgPNr5vapUflUm12GwIvs",
-    authDomain: "checkmeweb-420.firebaseapp.com",
-    databaseURL: "https://checkmeweb-420.firebaseio.com",
-    projectId: "checkmeweb-420",
-    storageBucket: "checkmeweb-420.appspot.com",
-    messagingSenderId: "195373733419"
+    apiKey: 'AIzaSyBTjWldXXI4GWtgPNr5vapUflUm12GwIvs',
+    authDomain: 'checkmeweb-420.firebaseapp.com',
+    databaseURL: 'https://checkmeweb-420.firebaseio.com',
+    projectId: 'checkmeweb-420',
+    storageBucket: 'checkmeweb-420.appspot.com',
+    messagingSenderId: '195373733419'
   }
 };
 

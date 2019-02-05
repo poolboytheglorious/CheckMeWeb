@@ -5,7 +5,7 @@ import { switchMap } from 'rxjs/operators';
 import { DataService } from '../data.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormControl, Validators } from '@angular/forms';
-import { SpawnOptions } from 'child_process';
+
 
 @Component({
   selector: 'app-site',
@@ -14,13 +14,18 @@ import { SpawnOptions } from 'child_process';
 })
 export class SiteComponent implements OnInit, OnDestroy {
 
-  constructor(private data: DataService,
+  constructor(
+    private data: DataService,
     private http: HttpClient,
     public dialog: MatDialog,
     private route: ActivatedRoute,
     private router: Router,
-    private service: DataService
+    private service: DataService,
+    // @Inject(MAT_DIALOG_DATA) span
   ) { }
+
+  visits: any;
+  visit: object;
 
   site: string;
   name: string;
@@ -44,6 +49,15 @@ export class SiteComponent implements OnInit, OnDestroy {
     this.routeSub = this.route.params.subscribe(params => {
       this.span = params['spanid'];
     });
+
+    this.visits = this.http.get('http://localhost/sqltest/getsitevisits.php?spanID=' + this.span).subscribe(data => {
+      this.visit = data;
+      console.log(this.span);
+      console.log(this.visit, 'visit');
+      console.log(this.visits, 'visits');
+      }
+    );
+
   }
 
   openDialog(): void {
@@ -101,7 +115,8 @@ export class SiteDialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<SiteDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+    // @Inject(MAT_DIALOG_DATA) public data: DialogData
+    ) {}
 
     number = new FormControl('', [Validators.required]);
     reason = new FormControl('', [Validators.required]);

@@ -1,51 +1,63 @@
+h1 {
+  float: left;
+}
+.addVisit {
+  float: right;
+}
+.small-icon {
+  font-size: 15px;
+}
 
-  table {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    width:100%;
+table {
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  border-collapse: collapse;
+  border: 1px solid #ddd;
+  width:100%;
+  overflow: hidden;
+  white-space: nowrap;
+}
+  table tr:hover {
+    background-color :rgb(137, 209, 238)
   }
 
-  table th {
-    padding-top: 4px;
-    padding-bottom: 4px;
-    text-align: left;
-    color: white;
-  }
-
-  table tr th {
-    padding-top: 4px;
-    padding-bottom: 4px;
-    text-align: left;
-    background-color: rgb(49, 49, 49);
-    color: white;
-    font-weight: bold; 
+  table th :first-child {
+    border-top-left-radius: 20px;
   }
   
-  table td, table th {
-    border: 1px solid #ddd;
-    padding: 6px;
-    
-  }
-     
-  table tr:hover {background-color :rgb(137, 209, 238)}
-  
-  table tr th {
-    padding-top: 4px;
-    padding-bottom: 4px;
-    text-align: left;
-    background-color: rgb(128, 128, 128);
-    color: white;
-    font-weight: bold; 
-  }
-  table tr td {
-    text-align: left;
-    grid-template-columns: auto;
-  }
+  table th :last-child{
+    border-top-right-radius: 20px;
+  } 
 
-  
+ table th {
+  padding: 8px;
+  line-height: 20px;
+  text-align: left;
+  background-color: rgb(128, 128, 128);
+  color: white;
+  font-weight: bold; 
+  vertical-align: top;
+  border: 1px solid #ddd;
+ }
+
+table td {
+  text-align: left;
+  grid-template-columns: auto;
+  padding: 2px;
+  border: 1px solid #ddd;
+}
+
+table button {
+  height: 20px;
+}
+
+.active0 {
+background-color:#dff0d8;
+}
+
 @media screen and (max-width: 845px) {
 .small {
-  display: none;
+display: none;
 }
 
 }

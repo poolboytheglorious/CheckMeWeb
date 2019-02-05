@@ -22,14 +22,13 @@ export interface DialogData {
 export class EngineersComponent implements OnInit, OnDestroy {
 
   private req: any;
+  engineer: object;
 
   name: string;
   lastname: string;
   phonenumber: string;
   country: string;
   company: string;
-
-  engineer: object;
 
   constructor(private http: HttpClient, public dialog: MatDialog) { }
 
@@ -46,10 +45,10 @@ export class EngineersComponent implements OnInit, OnDestroy {
         }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+      dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       this.name = result;
-      console.log(this.name);
+      console.log(result);
       console.log(result);
     });
   }
@@ -83,9 +82,9 @@ export class EngineersComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.req = this.http.get('assets/json/engineers.json').subscribe(data => {
+    this.req = this.http.get('http://localhost/sqltest/getengineers.php').subscribe(data => {
+    // this.req = this.http.get('assets/json/engineers.json').subscribe(data => {
         this.engineer = data;
-        console.log(this.engineer);
         }
     );
   }

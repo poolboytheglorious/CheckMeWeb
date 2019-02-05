@@ -17,31 +17,81 @@
 
 
   <tr class = "active{{visit.active}}" *ngFor="let visit of visit">
+
     <td>
-        <button mat-button (click)="editEntry()"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-        <button mat-button (click)="toggleActive()">
-          <i id="like" ng-class="{'icon ion-ios7-heart': liked, 'icon ion-ios7-heart-outline': !liked}" ng-click="state=!state"></i>
-        </button>
+        <button mat-button (click)="editEntry()"><i class="material-icons small-icon">edit</i></button>
+        <div *ngIf="visit.active; then thenBlock else elseBlock ">
+            <!-- <ng-template #thenBlock><button mat-button (click)="toggleActive()"ng-click="state=!state"><i class="material-icons" >check_circle_outline</i></ng-template> -->
+        </div>
     </td>
+
+    <!-- <td <*ngIf="{{visit.active}} == 1; then thenBlock else elseBlock ">
+        
+      <ng-template #thenBlock><button mat-button (click)="toggleActive()"ng-click="state=!state"><i class="material-icons" >check_circle_outline</i></ng-template>
+      <ng-template #elseBlock><button mat-button (click)="toggleActive()"ng-click="state=!state"><i class="material-icons" >replay</i></ng-template>  
+    </td> -->
     
     <td class = "small">{{visit.VID}}</td>
-    <td matTooltip="{{visit.SignIn}}"
+    <td matTooltip="{{visit.checkIn}}"
         matTooltipPosition= 'before'
-        matTooltipShowDelay= '500'>{{visit.TimeIn}}</td>
-    <td matTooltip="{{visit.SignOut}}"
+        matTooltipShowDelay= '500'>{{visit.timeIn}}</td>
+
+    <td matTooltip="{{visit.checkOut}}"
         matTooltipPosition= 'after'
-        matTooltipShowDelay= '500'>{{visit.TimeOut}}</td> 
+        matTooltipShowDelay= '500'>{{visit.timeOut}}</td> 
 
-    <td><a routerLink ="/site/{{visit.SPANID}}">{{visit.SPANID}}</a></td>
-    <td> {{visit.Sitename}}</td>
-    <td ><a routerLink ="/engineer/{{visit.Engineer}}">{{visit.Engineer}}</a></td>
-    <td class = "small">{{visit.Reason1}}</td>
-    <td class = "small">{{visit.Reason2}}</td>
-    <td class = "small">{{visit.Reason3}}</td>
-    <td class = "small">{{visit.Comments}}</td>
-    <td class = "small">{{visit.Reference}}</td>
+    <td><a routerLink ="/site/{{visit.siteID}}">{{visit.siteID}}</a></td>
+    <td> {{visit.siteName}}</td>
+    <td ><a routerLink ="/engineer/{{visit.Engineer}}">{{visit.engineerNumber}}</a></td>
+    <td class = "small">{{visit.equipment}}</td>
+    <td class = "small">{{visit.workType}}</td>
+    <td class = "small">{{visit.reason}}</td>
+    
+    <td matTooltip="{{visit.lastModified}} on {{visit.lastModifiedTime | date:'dd LLL H:mm'}}"
+    matTooltipPosition= 'before'
+    matTooltipShowDelay= '500'>{{visit.lockedEquipment}}</td>
+   
+
+    <td class = "small">{{visit.INC}}</td>
   </tr>
- 
+  <tr class = "active{{visitH.active}}" *ngFor="let visitH of visitH">
 
-  </table>
+      <td>
+          <button mat-button (click)="editEntry()"><i class="material-icons small-icon">edit</i></button>
+          <div *ngIf="visitH.active; then thenBlock else elseBlock ">
+              <!-- <ng-template #thenBlock><button mat-button (click)="toggleActive()"ng-click="state=!state"><i class="material-icons" >check_circle_outline</i></ng-template> -->
+          </div>
+      </td>
+  
+      <!-- <td <*ngIf="{{visitH.active}} == 1; then thenBlock else elseBlock ">
+          
+        <ng-template #thenBlock><button mat-button (click)="toggleActive()"ng-click="state=!state"><i class="material-icons" >check_circle_outline</i></ng-template>
+        <ng-template #elseBlock><button mat-button (click)="toggleActive()"ng-click="state=!state"><i class="material-icons" >replay</i></ng-template>  
+      </td> -->
+      
+      <td class = "small">{{visitH.VID}}</td>
+      <td matTooltip="{{visitH.checkIn}}"
+          matTooltipPosition= 'before'
+          matTooltipShowDelay= '500'>{{visitH.timeIn}}</td>
+  
+      <td matTooltip="{{visitH.checkOut}}"
+          matTooltipPosition= 'after'
+          matTooltipShowDelay= '500'>{{visitH.timeOut}}</td> 
+  
+      <td><a routerLink ="/site/{{visitH.siteID}}">{{visitH.siteID}}</a></td>
+      <td> {{visitH.siteName}}</td>
+      <td ><a routerLink ="/engineer/{{visitH.Engineer}}">{{visitH.engineerNumber}}</a></td>
+      <td class = "small">{{visitH.equipment}}</td>
+      <td class = "small">{{visitH.workType}}</td>
+      <td class = "small">{{visitH.reason}}</td>
+      
+      <td matTooltip="{{visitH.lastModified}} on {{visitH.lastModifiedTime | date:'dd LLL H:mm'}}"
+      matTooltipPosition= 'before'
+      matTooltipShowDelay= '500'>{{visitH.lockedEquipment}}</td>
+     
+  
+      <td class = "small">{{visitH.INC}}</td>
+    </tr>
+ 
+</table>
 

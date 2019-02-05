@@ -1,60 +1,94 @@
 import { Injectable } from '@angular/core';
 import {HttpClientModule, HttpClient} from '@angular/common/http';
 import { FormControl, FormGroup, Validators} from '@angular/forms';
-import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { ReturnStatement } from '@angular/compiler';
 import { stringify } from 'querystring';
-import { homedir } from 'os';
+import { map } from 'rxjs/operators';
 
 
-// import { mysql } from 'mysql';
 @Injectable({
   providedIn: 'root'
 })
+
 export class DataService {
-
-  // mysql = require('mysql');
-  // connection = this.mysql.createConnection( {
-  //   host: 'localhost',
-  //   user: 'root',
-  //   password: ''
-  // });
-
 
   constructor(
     private http: HttpClient,
-    private firebase: AngularFireDatabase
     ) { }
-  visitsList: AngularFireList<any>;
+
+
+  visitsList: any;
+    resp: any;
 
   form = new FormGroup({
-    $key: new FormControl(null),
-    phonenumber: new FormControl(''),
-    lastname: new FormControl(''),
-    reason: new FormControl(''),
+    spanid: new FormControl('', [Validators.required]),
+    phonenumber: new FormControl('', [Validators.required]),
+    reason: new FormControl('', [Validators.required]),
     reason2: new FormControl(''),
-    compreason3: new FormControl(''),
+    reason3: new FormControl(''),
+    signin: new FormControl('aivistei'),
+    signout: new FormControl('aivistei'),
+    comment: new FormControl(''),
     inc: new FormControl(''),
   });
 
-
-  getUsers() {
-    return this.http.get('https://reqres.in/api/users');
+  getErrorMessage() {
+    return this.spanid.hasError('required') ? 'You must enter a valid site name' :
+     this.number.hasError('required') ? 'You must enter a number' :
+     this.company.hasError('required') ? 'You must enter a company' : '';
   }
 
 
-  getVisits() {
-    this.visitsList = this.firebase.list('visits');
-    return this.visitsList.snapshotChanges();
-    // return this.http.get('presences.php');
+  getEngineers() {
+    return this.http.get('http://localhost/sqltest/presences.php')
+    .pipe(map(res => {
+      this.resp = res;
+      if (this.resp._body !== '0') {
+         return this.resp.json();
+      }
+    }));
   }
+
+  getSiteVisits() {
+    return this.http.get('http://localhost/sqltest/getsitevisits.php?spanID={{span}}')
+    .pipe(map(res => {
+      this.resp = res;
+      if (this.resp._body !== '0') {
+         return this.resp.json();
+      }
+    }));
+  }
+
+  // editEntry(id) {
+
+  // }
+
+
+
   insertVisit(visit) {
     this.visitsList.push({
-      site: visit.site,
+      SPANID: visit.SPANID,
       phonenumber: visit.phonenumber,
       reason: visit.reason,
       reason2: visit.reason2,
       reason3: visit.reason3,
+      comment: visit.comment,
+      inc: visit.inc,
+    });
+  }
+
+  populateForm(visit) {
+    this.form.setValue(visit);
+  }
+
+  updateVisit(visit) {
+    this.visitsList.update(visit.$key, {
+      SPANID: visit.SPANID,
+      phonenumber: visit.phonenumber,
+      reason: visit.reason,
+      reason2: visit.reason2,
+      reason3: visit.reason3,
+      comment: visit.comment,
       inc: visit.inc,
     });
   }

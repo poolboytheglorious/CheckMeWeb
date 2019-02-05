@@ -7,13 +7,10 @@ import { NavComponent } from './nav/nav.component';
 import { ContactComponent } from './contact/contact.component';
 import { HomeComponent, HomeDialogComponent } from './home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatNativeDateModule } from '@angular/material';
+import { MatNativeDateModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { MaterialModule } from './material';
 
-
-import {AngularFireModule} from '@angular/fire';
-import {AngularFireDatabaseModule} from '@angular/fire/database';
 import {environment} from '../environments/environment';
 
 
@@ -48,9 +45,6 @@ import { DataService } from './data.service';
     BrowserAnimationsModule,
     MaterialModule,
     MatNativeDateModule,
-    
-    AngularFireDatabaseModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig)
   ],
   entryComponents: [
     EngineersDialogComponent,
@@ -58,7 +52,9 @@ import { DataService } from './data.service';
     SiteDialogComponent
   ],
 
-  providers: [DataService],
+  providers: [
+    DataService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
