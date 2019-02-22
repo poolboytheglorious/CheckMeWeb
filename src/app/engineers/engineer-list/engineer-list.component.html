@@ -13,11 +13,12 @@
 				<th>Country</th>
 				<th>Company</th>
 				<th>Date Created</th>
+				<th></th>
 				
 
 			</tr>	
 
-			<tr *ngFor="let engineer of engineer">
+			<tr *ngFor="let engineer of engineers">
 					<td>{{engineer.idEngineers}}</td>
 					<td>{{engineer.Name}}</td>
 					<td>{{engineer.LastName}}</td>
@@ -26,8 +27,10 @@
 					<td>{{engineer.Company}}</td>
 					<td>{{engineer.Registered}}</td>
 					
-					<td><button mat-button ng-click="deleteEng(engineer.id);">Delete</button></td>
-					<td><button mat-button ng-click="editEngineer(engineer.id, engineer.name, engineer.lastname, engineer.phone, engineer.country, engineer.company, engineer.created);">Edit</button></td>
+					<td>
+						
+						<button mat-button ng-click="openEditDialog();">Edit</button>
+					</td>
 
 			</tr>
 

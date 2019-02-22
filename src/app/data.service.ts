@@ -3,7 +3,9 @@ import {HttpClientModule, HttpClient} from '@angular/common/http';
 import { FormControl, FormGroup, Validators} from '@angular/forms';
 import { ReturnStatement } from '@angular/compiler';
 import { stringify } from 'querystring';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
+import { BehaviorSubject, Observable, pipe, observable } from 'rxjs';
+import { Visit } from './root-store/models/visit.model';
 
 
 @Injectable({
@@ -12,13 +14,12 @@ import { map } from 'rxjs/operators';
 
 export class DataService {
 
-  constructor(
-    private http: HttpClient,
-    ) { }
+visits$ = new BehaviorSubject<Visit[]>([]);
 
+  constructor(private http: HttpClient) { }
 
   visitsList: any;
-    resp: any;
+  resp: any;
 
   form = new FormGroup({
     spanid: new FormControl('', [Validators.required]),
@@ -32,21 +33,22 @@ export class DataService {
     inc: new FormControl(''),
   });
 
-  getErrorMessage() {
-    return this.spanid.hasError('required') ? 'You must enter a valid site name' :
-     this.number.hasError('required') ? 'You must enter a number' :
-     this.company.hasError('required') ? 'You must enter a company' : '';
+  // getErrorMessage() {
+  //   return this.spanid.hasError('required') ? 'You must enter a valid site name' :
+  //    this.number.hasError('required') ? 'You must enter a number' :
+  //    this.company.hasError('required') ? 'You must enter a company' : '';
+  // }
+
+
+  getActiveVisits() {
+    this.http.get<Visit[]>('http://localhost/sqltest/getactivevisits.php').subscribe(visits =>
+      this.visits$.next(visits)
+      );
+      console.log(this.visits$, 'visits');
   }
 
-
-  getEngineers() {
-    return this.http.get('http://localhost/sqltest/presences.php')
-    .pipe(map(res => {
-      this.resp = res;
-      if (this.resp._body !== '0') {
-         return this.resp.json();
-      }
-    }));
+  insertVisit(payload: Visit): Observable<Visit> {
+    return this.http.post<Visit>('', payload).pipe(catchError((error: any) => Observable.throw(error.json())));
   }
 
   getSiteVisits() {
@@ -64,18 +66,17 @@ export class DataService {
   // }
 
 
-
-  insertVisit(visit) {
-    this.visitsList.push({
-      SPANID: visit.SPANID,
-      phonenumber: visit.phonenumber,
-      reason: visit.reason,
-      reason2: visit.reason2,
-      reason3: visit.reason3,
-      comment: visit.comment,
-      inc: visit.inc,
-    });
+  getEngineers() {
+    return this.http.get('http://localhost/sqltest/presences.php')
+    .pipe(map(res => {
+      this.resp = res;
+      if (this.resp._body !== '0') {
+         return this.resp.json();
+      }
+    }));
   }
+
+
 
   populateForm(visit) {
     this.form.setValue(visit);

@@ -1,26 +1,33 @@
+import { AppComponent } from './app.component';
+import { ContactComponent } from './contact/contact.component';
+import { NavComponent } from './nav/nav.component';
+import { HomeComponent, HomeDialogComponent } from './home/home.component';
+import { HistoryComponent } from './history/history.component';
+import { SiteComponent, SiteDialogComponent } from './site/site.component';
+import { DataService } from './data.service';
+import { VisitsComponent } from './visits/visits.component';
+
+
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { NavComponent } from './nav/nav.component';
-import { ContactComponent } from './contact/contact.component';
-import { HomeComponent, HomeDialogComponent } from './home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatNativeDateModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { MaterialModule } from './material';
-
-import {environment} from '../environments/environment';
-
+import { StoreModule } from '@ngrx/store';
+import { visitReducer } from './root-store/reducers/visit.reducer';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { EngineersComponent, EngineersDialogComponent } from './engineers/engineers.component';
-import { HistoryComponent } from './history/history.component';
-import { SiteComponent, SiteDialogComponent } from './site/site.component';
-import { EngineerComponent } from './engineer/engineer.component';
-import { DataService } from './data.service';
+import { RootStoreModule } from './root-store/state/root-store.module';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { StoreRouterConnectingModule, routerReducer, RouterStateSerializer } from '@ngrx/router-store';
+
+
+
+
 
 
 @NgModule({
@@ -29,25 +36,30 @@ import { DataService } from './data.service';
     NavComponent,
     ContactComponent,
     HomeComponent,
-    EngineersComponent,
     HistoryComponent,
     SiteComponent,
-    EngineerComponent,
-    EngineersDialogComponent,
     HomeDialogComponent,
-    SiteDialogComponent
+    SiteDialogComponent,
+    VisitsComponent
      ],
+
+
   imports: [
     BrowserModule,
-    AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MaterialModule,
     MatNativeDateModule,
+    RootStoreModule,
+    StoreDevtoolsModule.instrument(),
+    StoreModule.forRoot({
+      visit: visitReducer
+    }),
+    AppRoutingModule
   ],
+
   entryComponents: [
-    EngineersDialogComponent,
     HomeDialogComponent,
     SiteDialogComponent
   ],

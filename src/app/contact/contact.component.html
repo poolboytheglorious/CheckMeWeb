@@ -4,7 +4,7 @@
   <h5 *ngIf ="success">Your form is valid! </h5>
 
   <label>
-      Name: <input type="text" [formControl]="name">
+      Name: <input type="text" >
       <div *ngIf="submitted && messageForm.controls.name.errors" class="error">
       <div *ngIf="messageForm.controls.name.errors.required" class="error">Please insert your name</div>
     </div>
@@ -12,7 +12,7 @@
   </label>
 
   <label>
-      Message: <textarea [formControl]="message"></textarea>
+      <textarea ></textarea>
       <div *ngIf="submitted && messageForm.controls.message.errors" class="error">
       <div *ngIf="messageForm.controls.message.errors.required" class="error">Please insert your name</div>
     </div>

@@ -1,0 +1,77 @@
+.form-group > * {
+    width:95%
+}
+
+button{
+    float:right;
+}
+ 
+h1 {
+    float: left;
+  }
+  a {
+  text-decoration: none;
+  }
+  
+  .addVisit {
+    float: right;
+  }
+  .small-icon {
+    font-size: 15px;
+  }
+  
+  table {
+    font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    border-collapse: collapse;
+    width:100%;
+    overflow: hidden;
+    white-space: nowrap;
+    border-radius:10px;
+    text-align: center; 
+    
+    
+  }
+    table tr:hover {
+      background-color: rgb(137, 209, 238);
+    }
+  
+   table th {
+    padding: 8px;
+    line-height: 20px;
+    background-color: rgb(128, 128, 128);
+    color: white;
+    font-weight: bold; 
+    vertical-align: top;
+    border: 1px solid #ddd;
+    background: linear-gradient(to top, #009FE0, #25b7c4);
+    }
+  
+  table td {
+    grid-template-columns: auto;
+    padding: 2px 2px 5px 5px;
+    border: 1px solid #ddd;
+    text-align: left; 
+    text-decoration: none;
+    vertical-align: middle; 
+    
+  }
+  
+  table button {
+      min-height: 23px;
+      min-width: 23px;
+      font-size: 10px ;
+      line-height: 0px;
+      
+   }
+  
+  .active0 {
+  background-color:#dff0d8;
+  }
+  
+  @media screen and (max-width: 845px) {
+  .small {
+  display: none;
+  }
+  
+  }

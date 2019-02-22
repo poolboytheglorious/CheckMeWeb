@@ -16,7 +16,24 @@ mat-option.mat-option{
 mat-form-field{
     width: 95%;
 }
+#tech {
+   grid-template-columns: 33% 33% 33%;
+  display: grid;
+  font-size: 10px;
+}
+
 
 mat-form-field:last-of-type{
     width: calc(95% - 64px)
+}
+
+.tech-tree-invisible {
+  display: none;
+}
+
+.tech-tree ul,
+.tech-tree li {
+  margin-top: 0;
+  margin-bottom: 0;
+  list-style-type: none;
 }
