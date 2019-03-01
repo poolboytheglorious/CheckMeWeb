@@ -18,8 +18,8 @@
 
 			</tr>	
 
-			<tr *ngFor="let engineer of engineers">
-					<td>{{engineer.idEngineers}}</td>
+			<tr *ngFor="let engineer of (engineers$ |async)">
+					<td>{{engineer.id}}</td>
 					<td>{{engineer.Name}}</td>
 					<td>{{engineer.LastName}}</td>
 					<td>{{engineer.PhoneNumber}}</td>
@@ -29,7 +29,7 @@
 					
 					<td>
 						
-						<button mat-button ng-click="openEditDialog();">Edit</button>
+						<button mat-button (click)="openEditDialog(engineer)">Edit</button>
 					</td>
 
 			</tr>

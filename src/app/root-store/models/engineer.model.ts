@@ -1,5 +1,5 @@
 export interface Engineer {
-    idEngineers: string;
+    id: number;
     Name: string;
     LastName: string;
     PhoneNumber: string;

@@ -13,18 +13,18 @@ export enum EngineerActionTypes {
     LOAD_ENGINEER_FAIL = '[Engineer] Load Engineer Fail',
 
 
-    CREATE_ENGINEER = '[Engineer] Create Engineers',
-    CREATE_ENGINEER_SUCCESS = '[Engineer] Create Engineers Success',
-    CREATE_ENGINEER_FAIL = '[Engineer] Create Engineers Fail',
+    CREATE_ENGINEER = '[Engineer] Create Engineer',
+    CREATE_ENGINEER_SUCCESS = '[Engineer] Create Engineer Success',
+    CREATE_ENGINEER_FAIL = '[Engineer] Create Engineer Fail',
 
 
-    UPDATE_ENGINEER = '[Engineer] Update Engineers',
-    UPDATE_ENGINEER_SUCCESS = '[Engineer] Update Engineers Success',
-    UPDATE_ENGINEER_FAIL = '[Engineer] Update Engineers Fail',
+    UPDATE_ENGINEER = '[Engineer] Update Engineer',
+    UPDATE_ENGINEER_SUCCESS = '[Engineer] Update Engineer Success',
+    UPDATE_ENGINEER_FAIL = '[Engineer] Update Engineer Fail',
 
-    DELETE_ENGINEER = '[Engineer] Delete Engineers',
-    DELETE_ENGINEER_SUCCESS = '[Engineer] Delete Engineers Success',
-    DELETE_ENGINEER_FAIL = '[Engineer] Delete Engineers Fail',
+    DELETE_ENGINEER = '[Engineer] Delete Engineer',
+    DELETE_ENGINEER_SUCCESS = '[Engineer] Delete Engineer Success',
+    DELETE_ENGINEER_FAIL = '[Engineer] Delete Engineer Fail',
 }
 
 export class LoadEngineers implements Action {
@@ -82,7 +82,7 @@ export class CreateEngineerFail implements Action {
 export class UpdateEngineer implements Action {
     readonly type = EngineerActionTypes.UPDATE_ENGINEER;
 
-    constructor(public payload: Update<Engineer>) {}
+    constructor(public payload: Engineer) {}
 }
 
 export class UpdateEngineerSuccess implements Action {

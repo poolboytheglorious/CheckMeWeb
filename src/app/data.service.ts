@@ -6,6 +6,7 @@ import { stringify } from 'querystring';
 import { map, catchError } from 'rxjs/operators';
 import { BehaviorSubject, Observable, pipe, observable } from 'rxjs';
 import { Visit } from './root-store/models/visit.model';
+import { Engineer } from './root-store/models/engineer.model';
 
 
 @Injectable({
@@ -15,6 +16,7 @@ import { Visit } from './root-store/models/visit.model';
 export class DataService {
 
 visits$ = new BehaviorSubject<Visit[]>([]);
+private engineersUrl = 'http://localhost/sqltest/getengineers.php';
 
   constructor(private http: HttpClient) { }
 
@@ -61,21 +63,29 @@ visits$ = new BehaviorSubject<Visit[]>([]);
     }));
   }
 
-  // editEntry(id) {
-
-  // }
-
 
   getEngineers() {
-    return this.http.get('http://localhost/sqltest/presences.php')
-    .pipe(map(res => {
-      this.resp = res;
-      if (this.resp._body !== '0') {
-         return this.resp.json();
-      }
-    }));
+    return this.http.get<Engineer[]>(this.engineersUrl);
   }
 
+  getEngineerById(payload: number): Observable<Engineer> {
+    return this.http.get<Engineer>(`${this.engineersUrl}/${payload}`);
+  }
+
+  createEngineer(payload: Engineer): Observable<Engineer> {
+    return this.http.post<Engineer>(this.engineersUrl, payload);
+  }
+
+  updateEngineer(engineer: Engineer): Observable<Engineer> {
+    return this.http.patch<Engineer>(
+      `${this.engineersUrl}/${engineer.id}`,
+      engineer
+    );
+  }
+
+  deleteEngineer(payload: number) {
+    return this.http.delete(`${this.engineersUrl}/${payload}`);
+  }
 
 
   populateForm(visit) {

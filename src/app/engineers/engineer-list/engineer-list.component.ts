@@ -1,10 +1,15 @@
 import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { DataService } from '../../data.service';
-import { Store } from '@ngrx/store';
+
+import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { EgnineerEditDialogComponent } from '../egnineer-edit-dialog/egnineer-edit-dialog.component';
+import { Engineer } from '../../root-store/models/engineer.model';
+import * as engineerActions from '../../root-store/actions/engineer.actions';
+import * as fromEngineer from '../../root-store/reducers/engineer.reducer';
+
 
 
 export interface DialogData {
@@ -24,10 +29,9 @@ export interface DialogData {
 
 export class EngineerListComponent implements OnInit {
 
-  engineers;
+  engineers$: Observable<Engineer[]>;
 
   private req: any;
-  engineer: object;
 
   name: string;
   lastname: string;
@@ -35,7 +39,12 @@ export class EngineerListComponent implements OnInit {
   country: string;
   company: string;
 
-  constructor(private http: HttpClient, public dialog: MatDialog, private store: Store<any>) { }
+  constructor(private http: HttpClient, public dialog: MatDialog, private store: Store<fromEngineer.AppState>) { }
+
+  ngOnInit() {
+    this.store.dispatch(new engineerActions.LoadEngineers());
+    this.engineers$ = this.store.pipe(select(fromEngineer.getEngineers));
+  }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(EngineerListDialogComponent, {
@@ -94,7 +103,7 @@ export class EngineerListComponent implements OnInit {
   }
 
   deleteEngineer (engineerId) {
-    this.http.post('delete.php', { 'idEngineers' : engineerId } );
+    this.http.post('delete.php', { 'id' : engineerId } );
     this.displayEngineer();
   }
 
@@ -107,10 +116,7 @@ export class EngineerListComponent implements OnInit {
     this.displayEngineer();
   }
 
-  ngOnInit() {
-    this.store.dispatch({type: 'LOAD_ENGINEERS'});
-    this.store.subscribe (state => (this.engineers = state.engineers.engineers));
-  }
+
 
   // ngOnInit() {
   //   this.req = this.http.get('http://localhost/sqltest/getengineers.php').subscribe(data => {

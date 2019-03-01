@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Visit } from '../root-store/models/visit.model';
-import { State } from '../root-store/state/root-state';
+import { AppState } from '../root-store/state/root-state';
 import { Observable } from 'rxjs';
 
 
@@ -16,7 +16,7 @@ export class VisitsComponent implements OnInit {
   visits: Observable<Visit[]>;
 
 
-  constructor(private store: Store<State>) { }
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
     this.visits = this.store.select('visit');

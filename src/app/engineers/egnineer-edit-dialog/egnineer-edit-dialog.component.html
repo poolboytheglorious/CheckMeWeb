@@ -1,31 +1,34 @@
-<h1 mat-dialog-title>Edit {{engineer.name}} </h1>
-<button mat-button ng-click="deleteEng(engineer.id);">Delete</button>
-<button mat-button ng-click="mergeEng(engineer.id);">Merge</button>
+<h1 mat-dialog-title>Edit engineer.name°</h1>
+<button mat-button (click)="deleteEng(engineer.id);">Delete</button>
+<button mat-button (click)="mergeEng(engineer.id);">Merge</button>
+
+<form [formGroup]="engineerForm" (submit)="updateEngineer()">
+
 
 <div mat-dialog-content>
-    <mat-form-field>
-        <input matInput placeholder="Phone Number"  autocomplete="off" >
+    <mat-form-field >
+        <input matInput for="PhoneNumber" placeholder="Phone Number"  autocomplete="off" >
         <!-- <mat-error *ngIf="number.invalid">{{getErrorMessage()}}</mat-error> -->
     </mat-form-field>
 
   <mat-form-field>
-        <input matInput placeholder="Name"  autocomplete="off">
+        <input matInput for="Name" placeholder="Name"  autocomplete="off">
         <!-- <mat-error *ngIf="name.invalid">{{getErrorMessage()}}</mat-error> -->
   </mat-form-field>
 
   <mat-form-field>
-        <input matInput placeholder="Last Name"  autocomplete="off">
+        <input matInput for="LastName" placeholder="Last Name"  autocomplete="off">
   </mat-form-field>
 
   <mat-form-field>
-        <input matInput placeholder="Company"  autocomplete="off">
+        <input matInput for="Company" placeholder="Company"  autocomplete="off">
         <!-- <mat-error *ngIf="company.invalid">{{getErrorMessage()}}</mat-error> -->
   </mat-form-field>
 
 
     
     <mat-form-field>
-        <mat-select placeholder="Pick a Country">
+        <mat-select for="Company" placeholder="Pick a Country">
             <mat-option value="option">LV <i class="flag-icon flag-icon-lv"> </i> </mat-option>
             <mat-option value="option">EE <span class="flag-icon flag-icon-ee"> </span></mat-option>
             <mat-option value="option">LT <span class="flag-icon flag-icon-lt"> </span></mat-option>
@@ -38,6 +41,7 @@
 
 <div mat-dialog-actions>
     <button mat-button (click)="onNoClick()">Cancel</button>
-    <button mat-button [mat-dialog-close] ng-click="insertdata()" cdkFocusInitial >Register</button>
+    <button mat-button [mat-dialog-close] (click)="updateEngineer()" cdkFocusInitial >Update engineer.name°</button>
 </div>
 
+</form>

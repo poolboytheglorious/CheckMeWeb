@@ -21,9 +21,10 @@ import { visitReducer } from './root-store/reducers/visit.reducer';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { RootStoreModule } from './root-store/state/root-store.module';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule, routerReducer, RouterStateSerializer } from '@ngrx/router-store';
+
 
 
 
@@ -46,16 +47,19 @@ import { StoreRouterConnectingModule, routerReducer, RouterStateSerializer } fro
 
   imports: [
     BrowserModule,
-    HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MaterialModule,
     MatNativeDateModule,
-    RootStoreModule,
-    StoreDevtoolsModule.instrument(),
     StoreModule.forRoot({
       visit: visitReducer
     }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 10
+    }),
+    EffectsModule.forRoot([]),
+    HttpClientModule,
+
     AppRoutingModule
   ],
 
