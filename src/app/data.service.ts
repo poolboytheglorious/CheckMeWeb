@@ -16,7 +16,9 @@ import { Engineer } from './root-store/models/engineer.model';
 export class DataService {
 
 visits$ = new BehaviorSubject<Visit[]>([]);
-private engineersUrl = 'http://localhost/sqltest/getengineers.php';
+private engineersUrl = 'http://localhost/sqltest/getEngineers.php';
+private engineerUrl = 'http://localhost/sqltest/getEngineer.php';
+private createEngineersUrl = 'http://localhost/sqltest/createEngineer.php';
 
   constructor(private http: HttpClient) { }
 
@@ -65,15 +67,42 @@ private engineersUrl = 'http://localhost/sqltest/getengineers.php';
 
 
   getEngineers() {
+    console.log(this.engineersUrl);
     return this.http.get<Engineer[]>(this.engineersUrl);
   }
 
   getEngineerById(payload: number): Observable<Engineer> {
-    return this.http.get<Engineer>(`${this.engineersUrl}/${payload}`);
+    console.log(`${this.engineersUrl}?id=${payload}`);
+    return this.http.get<Engineer>(`${this.engineerUrl}?id=${payload}`);
   }
 
   createEngineer(payload: Engineer): Observable<Engineer> {
-    return this.http.post<Engineer>(this.engineersUrl, payload);
+    console.log(
+      payload.Name,
+      payload.LastName,
+      payload.PhoneNumber,
+      payload.Country,
+      payload.Company,
+      'engineer details'
+    );
+    console.log(
+      `${this.createEngineersUrl}?
+      Name=${payload.Name}
+      &LastName=${payload.LastName}
+      &PhoneNumber=${payload.PhoneNumber}
+      &Country=${payload.Country}
+      &Company=${payload.Company}
+      `,
+    );
+
+
+    return this.http.post<Engineer>(`${this.createEngineersUrl}?
+    Name=${payload.Name}
+    &LastName=${payload.LastName}
+    &PhoneNumber=${payload.PhoneNumber}
+    &Country=${payload.Country}
+    &Company=${payload.Company}
+    `, payload);
   }
 
   updateEngineer(engineer: Engineer): Observable<Engineer> {

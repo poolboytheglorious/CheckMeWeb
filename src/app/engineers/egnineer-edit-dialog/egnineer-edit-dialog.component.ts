@@ -23,15 +23,16 @@ export class EgnineerEditDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<EgnineerEditDialogComponent>,
     private fb: FormBuilder,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
     private store: Store<fromEngineer.AppState>
     ) {}
 
     ngOnInit() {
       this.engineerForm = this.fb.group({
-        Name: new FormControl('', [Validators.required]),
-        PhoneNumber: new FormControl('', [Validators.required]),
-        Company: new FormControl('', [Validators.required]),
+        Name: ['', Validators.required],
+        LastName: [''],
+        PhoneNumber: ['', Validators.required],
+        Country: ['', Validators.required],
+        Company: ['', Validators.required],
         id: null
       });
 
@@ -50,6 +51,7 @@ export class EgnineerEditDialogComponent implements OnInit {
             Registered: currentEngineer.Registered,
             id: currentEngineer.id,
           });
+          console.log(currentEngineer);
         }
       });
       console.log(engineer$, 'engineer');
@@ -63,18 +65,19 @@ export class EgnineerEditDialogComponent implements OnInit {
         Company: this.engineerForm.get('Phone Number').value,
         Country: this.engineerForm.get('Name').value,
         PhoneNumber: this.engineerForm.get('Name').value,
-        id: this.engineerForm.get('°').value,
-        Registered: this.engineerForm.get('°').value
+        id: null,
+        Registered: null
       };
+      console.log(updatedEngineer);
       this.store.dispatch(new engineerActions.UpdateEngineer(updatedEngineer));
 
     }
 
 
     getErrorMessage() {
-      // return this.name.hasError('required') ? 'You must enter a name' :
-      //  this.number.hasError('required') ? 'You must enter a number' :
-      //  this.company.hasError('required') ? 'You must enter a company' : '';
+      // return Name.hasError('required') ? 'You must enter a name' :
+      //  this.PhoneNumber.hasError('required') ? 'You must enter a number' :
+      //  this.Company.hasError('required') ? 'You must enter a company' : '';
     }
 
   onNoClick(): void {

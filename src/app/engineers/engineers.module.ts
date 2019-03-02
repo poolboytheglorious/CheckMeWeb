@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../material';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { EffectsModule, Actions } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
@@ -34,7 +34,8 @@ import { EngineerListDialogComponent } from './engineer-list/engineer-list.compo
     EngineersRoutingModule,
     StoreModule.forFeature('engineers', EngineerReducer),
     EffectsModule.forFeature([EngineerEffect]),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
 
 
