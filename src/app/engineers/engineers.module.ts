@@ -17,7 +17,6 @@ import { EngineerComponent } from './engineer/engineer.component';
 import { EgnineerAddComponent } from './egnineer-add/egnineer-add.component';
 import { EgnineerEditDialogComponent } from './egnineer-edit-dialog/egnineer-edit-dialog.component';
 import { EngineerListComponent } from './engineer-list/engineer-list.component';
-import { EngineerListDialogComponent } from './engineer-list/engineer-list.component';
 
 
 @NgModule({
@@ -25,7 +24,6 @@ import { EngineerListDialogComponent } from './engineer-list/engineer-list.compo
     EgnineerAddComponent,
     EngineerComponent,
     EngineerListComponent,
-    EngineerListDialogComponent,
     EgnineerEditDialogComponent
   ],
   imports: [
@@ -38,10 +36,14 @@ import { EngineerListDialogComponent } from './engineer-list/engineer-list.compo
     FormsModule
   ],
 
+  // providers: [
+  //   EngineerListComponent
+  // ],
+
 
   entryComponents: [
-    EngineerListDialogComponent,
-    EgnineerEditDialogComponent
+    EgnineerEditDialogComponent,
+    EgnineerAddComponent
   ],
 })
 export class EngineersModule { }

@@ -1,40 +1,50 @@
 <h1 mat-dialog-title>Add new Engineer</h1>
 
-<div mat-dialog-content class="form-group">
-    <mat-form-field>
-        <input matInput placeholder="Phone Number">
-        <mat-error *ngIf="number.invalid">{{getErrorMessage()}}</mat-error>
-    </mat-form-field>
-
-  <mat-form-field>
-        <input matInput placeholder="Name">
-        <mat-error *ngIf="name.invalid">{{getErrorMessage()}}</mat-error>
-  </mat-form-field>
-
-  <mat-form-field>
-        <input matInput placeholder="Last Name">
-  </mat-form-field>
-
-  <mat-form-field>
-        <input matInput placeholder="Company">
-        <mat-error *ngIf="company.invalid">{{getErrorMessage()}}</mat-error>
-  </mat-form-field>
-
+<form [formGroup]="engineerForm" (ngSubmit)="createEngineer()" >
+    <div mat-dialog-content>
+        <mat-form-field>
+            <input matInput for="PhoneNumber" formControlName="PhoneNumber" placeholder="Phone Number"  autocomplete="off" required>
+            <!-- <mat-error *ngIf="PhoneNumber.invalid">{{getErrorMessage()}}</mat-error> -->
+        </mat-form-field>
     
-    <mat-form-field>
-        <mat-select placeholder="Pick a Country">
-            <mat-option value="option">LV <i class="flag-icon flag-icon-lv"> </i> </mat-option>
-            <mat-option value="option">EE <span class="flag-icon flag-icon-ee"> </span></mat-option>
-            <mat-option value="option">LT <span class="flag-icon flag-icon-lt"> </span></mat-option>
-            <mat-option value="option">HR <span class="flag-icon flag-icon-hr"> </span></mat-option>
-            <mat-option value="option">NL <span class="flag-icon flag-icon-nl"> </span></mat-option>
-            <mat-option value="option">SE <span class="flag-icon flag-icon-se"> </span></mat-option>
-        </mat-select>
-    </mat-form-field>
-</div>
+      <mat-form-field>
+            <input matInput for="Name" formControlName="Name" placeholder="Name"  autocomplete="off" required>
+            <!-- <mat-error *ngIf="Name.invalid">{{getErrorMessage()}}</mat-error> -->
+      </mat-form-field>
+    
+      <mat-form-field>
+            <input matInput for ="LastName" formControlName="LastName" placeholder="Last Name"  autocomplete="off">
+      </mat-form-field>
+    
+      <mat-form-field>
+            <input matInput for ="Company" formControlName="Company" placeholder="Company"  autocomplete="off" required>
+            <!-- <mat-error *ngIf="Company.invalid">{{getErrorMessage()}}</mat-error> -->
+      </mat-form-field>
+    
+    
+        
+        <mat-form-field>
+            <mat-select for ="Country" formControlName="Country" placeholder="Pick a Country" required>
+                <mat-option value="option">LV <i class="flag-icon flag-icon-lv"> </i> </mat-option>
+                <mat-option value="option">EE <span class="flag-icon flag-icon-ee"> </span></mat-option>
+                <mat-option value="option">LT <span class="flag-icon flag-icon-lt"> </span></mat-option>
+                <mat-option value="option">HR <span class="flag-icon flag-icon-hr"> </span></mat-option>
+                <mat-option value="option">NL <span class="flag-icon flag-icon-nl"> </span></mat-option>
+                <mat-option value="option">SE <span class="flag-icon flag-icon-se"> </span></mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    
+    <div mat-dialog-actions>
+        <button mat-button (click)="onNoClick()">Cancel</button>
+        <button mat-button [mat-dialog-close] [disabled]="!engineerForm.valid" type="submit" cdkFocusInitial >Register</button>
+    </div>
 
-<div mat-dialog-actions>
-    <button mat-button (click)="onNoClick()">Cancel</button>
-    <button mat-button [mat-dialog-close] ng-click="insertdata()" cdkFocusInitial >Register</button>
-</div>
+    <p>
+        Form Value: {{ engineerForm.value | json}}
+    </p><p>
+        Form Status: {{ engineerForm.status }}
+    </p>
+
+</form>
 
