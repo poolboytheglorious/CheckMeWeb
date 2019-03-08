@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy, Input } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
 import { FormControl, FormGroup, Validators, FormBuilder, Form } from '@angular/forms';
@@ -6,6 +6,7 @@ import { FormControl, FormGroup, Validators, FormBuilder, Form } from '@angular/
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { EgnineerEditDialogComponent } from '../egnineer-edit-dialog/egnineer-edit-dialog.component';
+import { EgnineerAddComponent } from '../egnineer-add/egnineer-add.component';
 import { Engineer } from '../../root-store/models/engineer.model';
 import * as engineerActions from '../../root-store/actions/engineer.actions';
 import * as fromEngineer from '../../root-store/reducers/engineer.reducer';
@@ -22,41 +23,74 @@ export class EngineerListComponent implements OnInit {
 
   engineers$: Observable<Engineer[]>;
   error$: Observable<String>;
+  engineerForm: FormGroup;
+
+  @Input()
+  Engineer: Engineer;
 
 
   constructor(
-    private http: HttpClient,
     public dialog: MatDialog,
     private store: Store<fromEngineer.AppState>,
-    private fb: FormBuilder
-    ) { }
+    private fb: FormBuilder,
+    ) {
+      this.engineerForm = this.fb.group({
+      Name: ['', Validators.required],
+      LastName: [''],
+      PhoneNumber: ['', Validators.required],
+      Country: ['', Validators.required],
+      Company: ['', Validators.required],
+    }); }
 
   ngOnInit() {
     this.store.dispatch(new engineerActions.LoadEngineers());
     this.engineers$ = this.store.pipe(select(fromEngineer.getEngineers));
     this.error$ = this.store.pipe(select(fromEngineer.getEngineersError));
+    const engineer$: Observable<Engineer> = this.store.select(
+      fromEngineer.getCurrentEngineer
+    );
+
+    engineer$.subscribe(currentEngineer => {
+      if (currentEngineer) {
+        this.engineerForm.patchValue({
+          Name: currentEngineer.Name,
+          LastName: currentEngineer.LastName,
+          Company: currentEngineer.Company,
+          Country: currentEngineer.Country,
+          PhoneNumber: currentEngineer.PhoneNumber,
+          Registered: currentEngineer.Registered,
+          id: currentEngineer.id,
+        });
+      }
+    });
+
   }
 
-  editEngineer(engineer: Engineer) {
-    this.store.dispatch(new engineerActions.LoadEngineer(engineer.id));
-    this.openEditDialog();
-  }
-
-
-  openDialog(): void {
-    const dialogRef = this.dialog.open(EngineerListDialogComponent, {
+  openAddDialog(): void {
+    const dialogRef = this.dialog.open(EgnineerAddComponent, {
       disableClose: true,
       width: '300px',
 
     });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.Engineer.Name = result.Name ;
+    });
   }
 
+  editEngineer(engineer: Engineer) {
+    this.store.dispatch(new engineerActions.LoadEngineer(engineer.id));
+    this.openEditDialog(engineer);
+  }
 
-    openEditDialog(): void {
+    openEditDialog({Name, LastName, PhoneNumber, Company, Country}: Engineer) {
     const dialogRef = this.dialog.open(EgnineerEditDialogComponent, {
       disableClose: true,
       width: '300px',
-
+      data: {
+        Name, LastName, PhoneNumber, Company, Country
+      }
     });
   }
 
@@ -68,6 +102,8 @@ export class EngineerListComponent implements OnInit {
   templateUrl: 'engineer-list-dialog.html',
   styleUrls: ['./engineer-list.dialog.css']
 })
+
+
 export class EngineerListDialogComponent implements OnInit {
 
   engineerForm: FormGroup;
@@ -76,19 +112,12 @@ export class EngineerListDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<EngineerListDialogComponent>,
     public dialog: MatDialog,
     private store: Store<fromEngineer.AppState>,
-    private fb: FormBuilder,
-    @Inject(MAT_DIALOG_DATA) public data: Engineer
+    private fb: FormBuilder
   ) {}
 
 
     ngOnInit() {
-      this.engineerForm = this.fb.group({
-        Name: ['', Validators.required],
-        LastName: [''],
-        PhoneNumber: ['', Validators.required],
-        Country: ['', Validators.required],
-        Company: ['', Validators.required]
-      });
+      
     }
 
 

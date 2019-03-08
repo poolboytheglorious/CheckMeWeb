@@ -56,10 +56,6 @@ export function EngineerReducer(
             });
 
         }
-        case engineersActions.EngineerActionTypes.UPDATE_ENGINEER_SUCCESS: {
-            return engineerAdapter.updateOne(action.payload, state);
-        }
-
 
         case engineersActions.EngineerActionTypes.LOAD_ENGINEER_FAIL: {
             return {

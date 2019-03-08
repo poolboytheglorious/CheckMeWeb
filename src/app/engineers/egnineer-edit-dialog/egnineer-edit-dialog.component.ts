@@ -6,7 +6,6 @@ import { FormControl, FormGroup, Validators, FormBuilder} from '@angular/forms';
 import { DataService } from '../../data.service';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { DialogData } from '../engineer-list/engineer-list.component';
 import * as engineerActions from '../../root-store/actions/engineer.actions';
 import * as fromEngineer from '../../root-store/reducers/engineer.reducer';
 import { Engineer } from 'src/app/root-store/models/engineer.model';
@@ -19,23 +18,24 @@ import { Engineer } from 'src/app/root-store/models/engineer.model';
 export class EgnineerEditDialogComponent implements OnInit {
 
   engineerForm: FormGroup;
+  Engineer$: Engineer;
 
   constructor(
     public dialogRef: MatDialogRef<EgnineerEditDialogComponent>,
     private fb: FormBuilder,
-    private store: Store<fromEngineer.AppState>
-    ) {}
+    private store: Store<fromEngineer.AppState>,
+    @Inject(MAT_DIALOG_DATA) {Name, LastName, PhoneNumber, Country, Company}: Engineer ) {
+      this.engineerForm = this.fb.group({
+        Name: [Name, Validators.required],
+        LastName: [LastName],
+        PhoneNumber: [PhoneNumber, Validators.required],
+        Country: [Country, Validators.required],
+        Company: [Company, Validators.required],
+      });
+     }
+
 
     ngOnInit() {
-      this.engineerForm = this.fb.group({
-        Name: ['', Validators.required],
-        LastName: [''],
-        PhoneNumber: ['', Validators.required],
-        Country: ['', Validators.required],
-        Company: ['', Validators.required],
-        id: null
-      });
-
       const engineer$: Observable<Engineer> = this.store.select(
         fromEngineer.getCurrentEngineer
       );
@@ -54,7 +54,6 @@ export class EgnineerEditDialogComponent implements OnInit {
           console.log(currentEngineer);
         }
       });
-      console.log(engineer$, 'engineer');
 
     }
 
@@ -72,6 +71,11 @@ export class EgnineerEditDialogComponent implements OnInit {
       this.store.dispatch(new engineerActions.UpdateEngineer(updatedEngineer));
 
     }
+
+    save() {
+      this.dialogRef.close(this.engineerForm.value);
+      console.log(this.engineerForm.value, 'form value');
+  }
 
 
     getErrorMessage() {

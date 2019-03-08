@@ -40,8 +40,8 @@ import { EngineerListDialogComponent } from './engineer-list/engineer-list.compo
 
 
   entryComponents: [
-    EngineerListDialogComponent,
-    EgnineerEditDialogComponent
+    EgnineerEditDialogComponent,
+    EgnineerAddComponent
   ],
 })
 export class EngineersModule { }

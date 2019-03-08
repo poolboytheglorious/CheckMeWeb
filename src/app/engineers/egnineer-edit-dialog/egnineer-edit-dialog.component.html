@@ -2,7 +2,7 @@
 <button mat-button (click)="deleteEng(engineer.id);">Delete</button>
 <button mat-button (click)="mergeEng(engineer.id);">Merge</button>
 
-<form [formGroup]="engineerForm" (submit)="updateEngineer()" >
+<form [formGroup]="engineerForm" (submit)="save()" >
     <div mat-dialog-content>
         <mat-form-field>
             <input matInput for = "PhoneNumber" formControlName="PhoneNumber" placeholder="Phone Number"  autocomplete="off" >
