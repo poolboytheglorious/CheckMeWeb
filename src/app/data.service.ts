@@ -18,7 +18,9 @@ export class DataService {
 visits$ = new BehaviorSubject<Visit[]>([]);
 private engineersUrl = 'http://localhost/sqltest/getEngineers.php';
 private engineerUrl = 'http://localhost/sqltest/getEngineer.php';
-private createEngineersUrl = 'http://localhost/sqltest/createEngineer.php';
+private createEngineerUrl = 'http://localhost/sqltest/createEngineer.php';
+private deleteEngineerUrl = 'http://localhost/sqltest/deleteEngineer.php';
+private updateEngineerUrl = 'http://localhost/sqltest/updateEngineer.php';
 
   constructor(private http: HttpClient) { }
 
@@ -44,11 +46,54 @@ private createEngineersUrl = 'http://localhost/sqltest/createEngineer.php';
   // }
 
 
+  getEngineers() {
+    return this.http.get<Engineer[]>(this.engineersUrl);
+  }
+
+  getEngineerById(payload: number): Observable<Engineer> {
+    console.log(`${this.engineerUrl}?id=${payload}`);
+    return this.http.get<Engineer>(`${this.engineerUrl}?id=${payload}`);
+  }
+
+  createEngineer(payload: Engineer): Observable<Engineer> {
+    return this.http.post<Engineer>(
+      `${this.createEngineerUrl}?Name=${payload.Name}&LastName=${payload.LastName}&Country=${payload.Country}
+    &PhoneNumber=${payload.PhoneNumber}&Company=${payload.Company}`, payload);
+  }
+
+  updateEngineer(engineer: Engineer): Observable<Engineer> {
+    console.log(
+      engineer.id,
+      engineer.Name,
+      engineer.LastName,
+      engineer.PhoneNumber,
+      engineer.Country,
+      engineer.Company,
+      '- update engineer details from dataservice'
+    );
+    console.log(
+      `${this.createEngineerUrl}?id=${engineer.id}&Name=${engineer.Name}&LastName=${engineer.LastName}&PhoneNumber=${engineer.PhoneNumber}&Country=${engineer.Country}&Company=${engineer.Company}`, ' - update link from dataservice'
+    );
+
+    return this.http.patch<Engineer>(
+      `${this.updateEngineerUrl}?id=${engineer.id}&Name=${engineer.Name}&LastName=${engineer.LastName}&Country=${engineer.Country}
+      &PhoneNumber=${engineer.PhoneNumber}&Company=${engineer.Company}`, engineer
+    );
+  }
+
+  deleteEngineer(payload: number) {
+    console.log(`${this.deleteEngineerUrl}?id=${payload}`, ' - deleteLink');
+    return this.http.delete(`${this.deleteEngineerUrl}?id=${payload}`);
+  }
+
+// VISIT SERVICES
+
+
+
   getActiveVisits() {
     this.http.get<Visit[]>('http://localhost/sqltest/getactivevisits.php').subscribe(visits =>
       this.visits$.next(visits)
       );
-      console.log(this.visits$, 'visits');
   }
 
   insertVisit(payload: Visit): Observable<Visit> {
@@ -63,74 +108,6 @@ private createEngineersUrl = 'http://localhost/sqltest/createEngineer.php';
          return this.resp.json();
       }
     }));
-  }
-
-
-  getEngineers() {
-    console.log(this.engineersUrl);
-    return this.http.get<Engineer[]>(this.engineersUrl);
-  }
-
-  getEngineerById(payload: number): Observable<Engineer> {
-    console.log(`${this.engineersUrl}?id=${payload}`);
-    return this.http.get<Engineer>(`${this.engineerUrl}?id=${payload}`);
-  }
-
-  createEngineer(payload: Engineer): Observable<Engineer> {
-    console.log(
-      payload.Name,
-      payload.LastName,
-      payload.PhoneNumber,
-      payload.Country,
-      payload.Company,
-      'engineer details'
-    );
-    console.log(
-      `${this.createEngineersUrl}?
-      Name=${payload.Name}
-      &LastName=${payload.LastName}
-      &PhoneNumber=${payload.PhoneNumber}
-      &Country=${payload.Country}
-      &Company=${payload.Company}
-      `,
-    );
-
-
-    return this.http.post<Engineer>(`${this.createEngineersUrl}?
-    Name=${payload.Name}
-    &LastName=${payload.LastName}
-    &PhoneNumber=${payload.PhoneNumber}
-    &Country=${payload.Country}
-    &Company=${payload.Company}
-    `, payload);
-  }
-
-  updateEngineer(engineer: Engineer): Observable<Engineer> {
-    return this.http.patch<Engineer>(
-      `${this.engineersUrl}/${engineer.id}`,
-      engineer
-    );
-  }
-
-  deleteEngineer(payload: number) {
-    return this.http.delete(`${this.engineersUrl}/${payload}`);
-  }
-
-
-  populateForm(visit) {
-    this.form.setValue(visit);
-  }
-
-  updateVisit(visit) {
-    this.visitsList.update(visit.$key, {
-      SPANID: visit.SPANID,
-      phonenumber: visit.phonenumber,
-      reason: visit.reason,
-      reason2: visit.reason2,
-      reason3: visit.reason3,
-      comment: visit.comment,
-      inc: visit.inc,
-    });
   }
 
 

@@ -33,14 +33,15 @@ export class EngineerListComponent implements OnInit {
     public dialog: MatDialog,
     private store: Store<fromEngineer.AppState>,
     private fb: FormBuilder,
-    ) {
-      this.engineerForm = this.fb.group({
+  ) {
+    this.engineerForm = this.fb.group({
       Name: ['', Validators.required],
       LastName: [''],
       PhoneNumber: ['', Validators.required],
       Country: ['', Validators.required],
       Company: ['', Validators.required],
-    }); }
+    });
+  }
 
   ngOnInit() {
     this.store.dispatch(new engineerActions.LoadEngineers());
@@ -66,25 +67,22 @@ export class EngineerListComponent implements OnInit {
 
   }
 
-  openAddDialog(): void {
+
+  addEngineer() {
     const dialogRef = this.dialog.open(EgnineerAddComponent, {
       disableClose: true,
       width: '300px',
-
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.Engineer.Name = result.Name ;
+      data: {}
     });
   }
 
   editEngineer(engineer: Engineer) {
     this.store.dispatch(new engineerActions.LoadEngineer(engineer.id));
     this.openEditDialog(engineer);
+    console.log(engineer.id, 'selectedEngineersId');
   }
 
-    openEditDialog({Name, LastName, PhoneNumber, Company, Country}: Engineer) {
+  openEditDialog({ Name, LastName, PhoneNumber, Company, Country }: Engineer) {
     const dialogRef = this.dialog.open(EgnineerEditDialogComponent, {
       disableClose: true,
       width: '300px',
@@ -94,56 +92,5 @@ export class EngineerListComponent implements OnInit {
     });
   }
 
-
-}
-
-@Component({
-  selector: 'app-engineer-list-dialog',
-  templateUrl: 'engineer-list-dialog.html',
-  styleUrls: ['./engineer-list.dialog.css']
-})
-
-
-export class EngineerListDialogComponent implements OnInit {
-
-  engineerForm: FormGroup;
-
-  constructor(
-    public dialogRef: MatDialogRef<EngineerListDialogComponent>,
-    public dialog: MatDialog,
-    private store: Store<fromEngineer.AppState>,
-    private fb: FormBuilder
-  ) {}
-
-
-    ngOnInit() {
-      
-    }
-
-
-    createEngineer() {
-      const newEngineer: Engineer = {
-        Name: this.engineerForm.get('Name').value,
-        LastName: this.engineerForm.get('Lastame').value,
-        PhoneNumber: this.engineerForm.get('PhoneNumber').value,
-        Country: this.engineerForm.get('Country').value,
-        Company: this.engineerForm.get('Company').value,
-        id: null,
-        Registered: null
-      };
-      console.log(newEngineer, 'new engineer');
-      this.store.dispatch(new engineerActions.CreateEngineer(newEngineer));
-      this.engineerForm.reset();
-    }
-
-    getErrorMessage() {
-      // return this.name.hasError('required') ? 'You must enter a name' :
-      //  this.number.hasError('required') ? 'You must enter a number' :
-      //  this.company.hasError('required') ? 'You must enter a company' : '';
-    }
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
 
 }

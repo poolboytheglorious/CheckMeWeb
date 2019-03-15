@@ -47,7 +47,7 @@ export class EngineerEffect {
                 ),
                 catchError(err => of(new engineerActions.LoadEngineerFail(err)))
             )
-        )
+        ),
     );
 
     @Effect()

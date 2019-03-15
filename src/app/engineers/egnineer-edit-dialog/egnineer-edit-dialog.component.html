@@ -1,8 +1,8 @@
 <h1 mat-dialog-title>Edit engineer.name°</h1>
-<button mat-button (click)="deleteEng(engineer.id);">Delete</button>
-<button mat-button (click)="mergeEng(engineer.id);">Merge</button>
+<button mat-button (click)="deleteEngineer(engineer);">Delete</button>
+<button mat-button (click)="mergeEng(engineer);">Merge</button>
 
-<form [formGroup]="engineerForm" (submit)="save()" >
+<form [formGroup]="engineerForm" >
     <div mat-dialog-content>
         <mat-form-field>
             <input matInput for = "PhoneNumber" formControlName="PhoneNumber" placeholder="Phone Number"  autocomplete="off" >
@@ -27,19 +27,19 @@
         
         <mat-form-field>
             <mat-select for ="Country" formControlName="Country" placeholder="Pick a Country">
-                <mat-option value="option">LV <i class="flag-icon flag-icon-lv"> </i> </mat-option>
-                <mat-option value="option">EE <span class="flag-icon flag-icon-ee"> </span></mat-option>
-                <mat-option value="option">LT <span class="flag-icon flag-icon-lt"> </span></mat-option>
-                <mat-option value="option">HR <span class="flag-icon flag-icon-hr"> </span></mat-option>
-                <mat-option value="option">NL <span class="flag-icon flag-icon-nl"> </span></mat-option>
-                <mat-option value="option">SE <span class="flag-icon flag-icon-se"> </span></mat-option>
+                <mat-option value="LV">LV <i class="flag-icon flag-icon-lv"> </i> </mat-option>
+                <mat-option value="EE">EE <span class="flag-icon flag-icon-ee"> </span></mat-option>
+                <mat-option value="LT">LT <span class="flag-icon flag-icon-lt"> </span></mat-option>
+                <mat-option value="HR">HR <span class="flag-icon flag-icon-hr"> </span></mat-option>
+                <mat-option value="NL">NL <span class="flag-icon flag-icon-nl"> </span></mat-option>
+                <mat-option value="SE">SE <span class="flag-icon flag-icon-se"> </span></mat-option>
             </mat-select>
         </mat-form-field>
     </div>
 
 <div mat-dialog-actions>
     <button mat-button (click)="onNoClick()">Cancel</button>
-    <button mat-button [mat-dialog-close]  type="submit" cdkFocusInitial >Update engineer.name°</button>
+    <button mat-button (click)="updateEngineer()" cdkFocusInitial >Update engineer.name°</button>
 </div>
 
 </form>

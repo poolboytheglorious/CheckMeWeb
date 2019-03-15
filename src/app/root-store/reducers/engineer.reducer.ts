@@ -15,7 +15,9 @@ export interface AppState extends fromRoot.AppState {
     engineers: EngineerState;
 }
 
-export const engineerAdapter: EntityAdapter<Engineer> = createEntityAdapter<Engineer>();
+export const engineerAdapter: EntityAdapter<Engineer> =
+    createEntityAdapter<Engineer>({
+    });
 
 export const defaultEngineer: EngineerState = {
 ids: [],
@@ -50,9 +52,12 @@ export function EngineerReducer(
         }
 
         case engineersActions.EngineerActionTypes.LOAD_ENGINEER_SUCCESS: {
+            console.log(action.payload, ' - ID of the selected engineer object');
             return engineerAdapter.addOne(action.payload, {
                 ...state,
-               selectedEngineerId: action.payload.id
+               selectedEngineerId: action.payload.id,
+               loading: false,
+               loaded: true
             });
 
         }
@@ -60,7 +65,9 @@ export function EngineerReducer(
         case engineersActions.EngineerActionTypes.LOAD_ENGINEER_FAIL: {
             return {
                 ...state,
-                error: action.payload
+                error: action.payload,
+                loading: false,
+                loaded: false,
             };
         }
 

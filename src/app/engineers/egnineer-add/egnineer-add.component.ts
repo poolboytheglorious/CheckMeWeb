@@ -1,11 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { Store, select } from '@ngrx/store';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { FormControl, FormGroup, Validators, FormBuilder, Form } from '@angular/forms';
-import * as fromEngineer from '../../root-store/reducers/engineer.reducer';
-import * as engineerActions from '../../root-store/actions/engineer.actions';
+import { Store } from '@ngrx/store';
+import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material';
+import { FormGroup, Validators, FormBuilder, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { Engineer } from '../../root-store/models/engineer.model';
-
+import * as engineerActions from '../../root-store/actions/engineer.actions';
+import * as fromEngineer from '../../root-store/reducers/engineer.reducer';
 
 
 @Component({
@@ -15,18 +14,18 @@ import { Engineer } from '../../root-store/models/engineer.model';
 })
 export class EgnineerAddComponent implements OnInit {
 
-  engineerForm: FormGroup;
-  Engineer: Engineer;
-
   constructor(
     public dialogRef: MatDialogRef<EgnineerAddComponent>,
-    public dialog: MatDialog,
-    private store: Store<fromEngineer.AppState>,
     private fb: FormBuilder,
-  ) {}
+    private store: Store<fromEngineer.AppState>,
+    @Inject(MAT_DIALOG_DATA) public data: any) { }
+
+  engineerAddForm: FormGroup;
 
   ngOnInit() {
-    this.engineerForm = this.fb.group({
+    this.engineerAddForm = this.fb.group({
+      id: [''],
+      Registered: [''],
       Name: ['', Validators.required],
       LastName: [''],
       PhoneNumber: ['', Validators.required],
@@ -36,22 +35,35 @@ export class EgnineerAddComponent implements OnInit {
   }
 
   createEngineer() {
-    this.dialogRef.close(this.engineerForm.value);
     const newEngineer: Engineer = {
-      Name: this.engineerForm.get('Name').value,
-      LastName: this.engineerForm.get('Lastame').value,
-      PhoneNumber: this.engineerForm.get('PhoneNumber').value,
-      Country: this.engineerForm.get('Country').value,
-      Company: this.engineerForm.get('Company').value,
+      Name: this.engineerAddForm.get('Name').value,
+      LastName: this.engineerAddForm.get('LastName').value,
+      PhoneNumber: this.engineerAddForm.get('PhoneNumber').value,
+      Country: this.engineerAddForm.get('Country').value,
+      Company: this.engineerAddForm.get('Company').value,
       id: null,
       Registered: null
     };
-    console.log(newEngineer, 'New engineer');
-    console.log(this.engineerForm.value, 'Add form values');
+    console.log(newEngineer, 'new engineer');
     this.store.dispatch(new engineerActions.CreateEngineer(newEngineer));
-    this.engineerForm.reset();
+    this.engineerAddForm.reset();
+    this.store.dispatch(new engineerActions.LoadEngineers());
+
   }
 
+  // Name = new FormControl ('');
+  // PhoneNumber = new FormControl ('');
+  // Company = new FormControl ('');
+  // Country = new FormControl ('');
 
+  // getErrorMessage() {
+  //   return this.Name.hasError('required') ? 'You must enter a name' :
+  //     this.PhoneNumber.hasError('required') ? 'You must enter a number' :
+  //       this.Company.hasError('required') ? 'You must enter a company' : '';
+  // }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
 }
 
