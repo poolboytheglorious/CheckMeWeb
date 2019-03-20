@@ -34,7 +34,7 @@ export class EngineerListComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new engineerActions.LoadEngineers());
-    this.engineers$ = this.store.pipe(select(fromEngineer.getEngineers));
+    this.engineers$ = this.store.pipe(select(fromEngineer.selectAll));
     this.error$ = this.store.pipe(select(fromEngineer.getEngineersError));
   }
 

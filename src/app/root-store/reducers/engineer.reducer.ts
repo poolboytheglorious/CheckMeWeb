@@ -18,12 +18,12 @@ export interface AppState extends fromRoot.AppState {
 export const engineerAdapter: EntityAdapter<Engineer> = createEntityAdapter<Engineer>();
 
 export const defaultEngineer: EngineerState = {
-ids: [],
-entities: {},
-selectedEngineerId: null,
-loading: false,
-loaded: false,
-error: ''
+    ids: [],
+    entities: {},
+    selectedEngineerId: null,
+    loading: false,
+    loaded: false,
+    error: ''
 };
 
 export const initialState = engineerAdapter.getInitialState(defaultEngineer);
@@ -31,7 +31,7 @@ export const initialState = engineerAdapter.getInitialState(defaultEngineer);
 export function EngineerReducer(
     state = initialState,
     action: engineersActions.Action): EngineerState {
-            switch (action.type) {
+    switch (action.type) {
         case engineersActions.EngineerActionTypes.LOAD_ENGINEERS_SUCCESS: {
             return engineerAdapter.addAll(action.payload, {
                 ...state,
@@ -50,22 +50,22 @@ export function EngineerReducer(
         }
 
         case engineersActions.EngineerActionTypes.LOAD_ENGINEER_SUCCESS: {
-            return engineerAdapter.addOne(action.payload, {
+            return engineerAdapter.addOne(action.payload[0], {
                 ...state,
-               selectedEngineerId: action.payload.id
+                selectedEngineerId: action.payload[0].id
             });
 
         }
-        case engineersActions.EngineerActionTypes.UPDATE_ENGINEER_SUCCESS: {
-            return engineerAdapter.updateOne(action.payload, state);
-        }
-
 
         case engineersActions.EngineerActionTypes.LOAD_ENGINEER_FAIL: {
             return {
                 ...state,
                 error: action.payload
             };
+        }
+
+        case engineersActions.EngineerActionTypes.UPDATE_ENGINEER_SUCCESS: {
+            return engineerAdapter.updateOne(action.payload, state);
         }
 
         case engineersActions.EngineerActionTypes.CREATE_ENGINEER_SUCCESS: {
@@ -90,16 +90,20 @@ export function EngineerReducer(
             };
         }
 
-
         default: {
             return state;
         }
     }
-    }
+}
 
-const getEngineerFeatureState = createFeatureSelector<EngineerState>(
-    'engineers'
-);
+const getEngineerFeatureState = createFeatureSelector<EngineerState>('engineers');
+
+export const {
+    selectIds,
+    selectEntities,
+    selectAll,
+    selectTotal
+} = engineerAdapter.getSelectors(getEngineerFeatureState);
 
 export const getEngineers = createSelector(
     getEngineerFeatureState,

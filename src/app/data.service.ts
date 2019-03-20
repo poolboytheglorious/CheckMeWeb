@@ -16,9 +16,9 @@ import { Engineer } from './root-store/models/engineer.model';
 export class DataService {
 
 visits$ = new BehaviorSubject<Visit[]>([]);
-private engineersUrl = 'http://localhost/sqltest/getEngineers.php';
-private engineerUrl = 'http://localhost/sqltest/getEngineer.php';
-private createEngineersUrl = 'http://localhost/sqltest/createEngineer.php';
+private engineersUrl = 'http://localhost:3000/engineers';
+private engineerUrl = 'http://localhost:3000/engineers';
+private createEngineersUrl = 'http://localhost:3000/engineers';
 
   constructor(private http: HttpClient) { }
 
@@ -114,6 +114,7 @@ private createEngineersUrl = 'http://localhost/sqltest/createEngineer.php';
 
   deleteEngineer(payload: number) {
     return this.http.delete(`${this.engineersUrl}/${payload}`);
+    // return this.http.delete(`${this.engineersUrl}/${payload}`);
   }
 
 

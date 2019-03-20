@@ -1,8 +1,8 @@
-<h1 mat-dialog-title>Edit engineer.name°</h1>
-<button mat-button (click)="deleteEng(engineer.id);">Delete</button>
+<h1 mat-dialog-title>Edit</h1>
+<button mat-button (click)="deleteEng();">Delete</button>
 <button mat-button (click)="mergeEng(engineer.id);">Merge</button>
 
-<form [formGroup]="engineerForm" (submit)="updateEngineer()" >
+<form [formGroup]="engineerForm" (submit)="message()" >
     <div mat-dialog-content>
         <mat-form-field>
             <input matInput for = "PhoneNumber" formControlName="PhoneNumber" placeholder="Phone Number"  autocomplete="off" >
@@ -38,8 +38,9 @@
     </div>
 
 <div mat-dialog-actions>
-    <button mat-button (click)="onNoClick()">Cancel</button>
-    <button mat-button [mat-dialog-close]  type="submit" cdkFocusInitial >Update engineer.name°</button>
+    <button mat-button cdkFocusInitial (click)="onNoClick()">Cancel</button>
+    <button mat-button [mat-dialog-close] (click)="updateEngineer()" >Update</button>
+    <!-- <button mat-button [mat-dialog-close]  type="submit">Update</button> -->
 </div>
 
 </form>

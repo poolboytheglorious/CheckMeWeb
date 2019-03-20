@@ -18,6 +18,7 @@ import { Engineer } from 'src/app/root-store/models/engineer.model';
 export class EgnineerEditDialogComponent implements OnInit {
 
   engineerForm: FormGroup;
+  engineer$: Observable<Engineer>;
 
   constructor(
     public dialogRef: MatDialogRef<EgnineerEditDialogComponent>,
@@ -35,11 +36,9 @@ export class EgnineerEditDialogComponent implements OnInit {
       id: null
     });
 
-    const engineer$: Observable<Engineer> = this.store.select(
-      fromEngineer.getCurrentEngineer
-    );
+    this.engineer$ = this.store.select(fromEngineer.getCurrentEngineer);
 
-    engineer$.subscribe(currentEngineer => {
+    this.engineer$.subscribe(currentEngineer => {
       if (currentEngineer) {
         this.engineerForm.patchValue({
           Name: currentEngineer.Name,
@@ -50,28 +49,31 @@ export class EgnineerEditDialogComponent implements OnInit {
           Registered: currentEngineer.Registered,
           id: currentEngineer.id,
         });
-        console.log(currentEngineer);
+        console.log(currentEngineer, 'current engineer details');
       }
     });
-    console.log(engineer$, 'engineer');
 
   }
 
-  updateEngineer() {
+  updateEngineer(engineer: Engineer) {
+    console.log('updating engineer');
     const updatedEngineer: Engineer = {
       Name: this.engineerForm.get('Name').value,
-      LastName: this.engineerForm.get('Last Name').value,
-      Company: this.engineerForm.get('Phone Number').value,
-      Country: this.engineerForm.get('Name').value,
-      PhoneNumber: this.engineerForm.get('Name').value,
-      id: null,
-      Registered: null
+      LastName: this.engineerForm.get('LastName').value,
+      Company: this.engineerForm.get('Company').value,
+      Country: this.engineerForm.get('Country').value,
+      PhoneNumber: this.engineerForm.get('PhoneNumber').value,
+      id: this.engineerForm.get('id').value,
+      Registered: this.engineerForm.get('Registered').value
     };
-    console.log(updatedEngineer);
+    console.log(updatedEngineer, 'update information');
     this.store.dispatch(new engineerActions.UpdateEngineer(updatedEngineer));
 
   }
 
+  deleteEng(id: number) {
+    this.store.dispatch(new engineerActions.DeleteEngineer(id));
+  }
 
   getErrorMessage() {
     // return Name.hasError('required') ? 'You must enter a name' :
